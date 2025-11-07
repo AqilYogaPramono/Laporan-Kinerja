@@ -1,0 +1,150 @@
+/* Flash messages (auth only) */
+.flash-container-auth {
+    position: fixed;
+    top: calc(18px + env(safe-area-inset-top, 0px));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2030;
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    align-items: start;
+    width: auto;
+    max-width: min(92vw, 520px);
+}
+.flash {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
+    width: fit-content;
+    min-width: 240px;
+    max-width: 100%;
+    line-height: 1.45;
+    font-size: 0.95rem;
+    transform: translateY(-10px);
+    opacity: 0;
+    animation: flash-in-down 220ms ease-out forwards;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    backdrop-filter: saturate(150%) blur(6px);
+}
+.flash-success { background: #57B657; border: 1px solid #57B657; color: #fff; }
+.flash-error { background: #FF4747; border: 1px solid #FF4747; color: #fff; }
+.flash-body { flex: 1 1 auto; text-align: center; }
+@keyframes flash-in-down { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes flash-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-8px); opacity: 0; } }
+
+/* Auth form styling */
+.auth-form-light {
+    border-radius: 20px;
+    box-shadow: 0 22px 44px rgba(30, 64, 175, 0.12), 0 8px 18px rgba(7, 16, 41, 0.08);
+    background: linear-gradient(145deg, #ffffff 0%, #f7f9ff 100%);
+}
+
+.auth-form-light .input-group {
+    border: 1px solid #d9e2f3;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: saturate(140%) blur(8px);
+    overflow: hidden;
+    transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.auth-form-light .input-group + .input-group {
+    margin-top: 1rem;
+}
+
+.auth-form-light .input-group:focus-within {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.12);
+    background: rgba(255, 255, 255, 0.97);
+}
+
+.auth-form-light .input-group-text {
+    border: none;
+    background: transparent;
+    color: #4e5d7d;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 0.95rem;
+    min-width: 48px;
+}
+
+.auth-form-light .input-group-text i {
+    line-height: 1;
+}
+
+.auth-form-light .input-group-text.toggle-password {
+    cursor: pointer;
+    border-left: 1px solid rgba(76, 100, 141, 0.14);
+    transition: color 160ms ease, background-color 160ms ease;
+}
+
+.auth-form-light .input-group-text.toggle-password:hover {
+    background: rgba(13, 110, 253, 0.08);
+    color: #0d6efd;
+}
+
+.auth-form-light .form-control {
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    color: #2e3a59;
+}
+
+.auth-form-light .form-control:focus {
+    box-shadow: none;
+    background: transparent;
+}
+
+.auth-form-light .form-control::placeholder {
+    color: #98a2c0;
+}
+
+.auth-form-light .auth-form-btn {
+    border-radius: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1.25rem;
+    transition: transform 120ms ease, box-shadow 160ms ease;
+}
+
+.auth-form-light .auth-form-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 24px rgba(13, 110, 253, 0.24);
+}
+
+.auth-form-light .auth-form-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(13, 110, 253, 0.18);
+}
+
+.auth-form-light .font-weight-light a {
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .flash { min-width: auto; width: auto; margin: 0 12px; padding: 10px 14px; font-size: 0.9rem; border-radius: 10px; box-sizing: border-box; }
+    .flash-container-auth { left: 0; right: 0; transform: none; max-width: none; width: 100%; padding: 0; gap: 8px; }
+    .auth-form-light { max-width: 94%; padding: 1.25rem 1rem 1rem 1rem; border-radius: 18px; }
+    .auth-form-light .input-group { border-radius: 14px; }
+    .auth-form-light h2 { font-size: 1.35rem; margin-bottom: 0.9rem; }
+    .brand-logo img { max-width: 60px; }
+    .form-group { margin-bottom: 1rem; }
+    .input-group-text { padding: 0.6rem 0.75rem; font-size: 0.95rem; }
+    .form-control-lg { padding: 0.6rem 0.75rem; font-size: 0.95rem; }
+    .toggle-password { padding: 0.6rem 0.75rem; }
+    .auth-form-btn { font-size: 0.95rem; padding: 0.7rem 1rem; margin-top: 1rem; }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .flash { width: auto; margin: 0 12px; padding: 12px 16px; box-sizing: border-box; }
+    .flash-container-auth { left: 16px; right: 16px; transform: none; max-width: none; width: auto; }
+}

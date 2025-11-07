@@ -1,7 +1,25 @@
 const connection = require('../config/db')
+const bcrypt = require('bcryptjs')
 
-class manajer {
+class Manajer {
+    static async checkNomorPegawai(data) {
+        try {
+            const [rows] = await connection.query(`select nomor_pegawai from manajer where nomor_pegawai = ?`, [data.nomor_pegawai])
+            return rows.length > 0
+        } catch (err) {
+            throw err
+        }
+    }
 
+    static async register(data) {
+        try {
+            const hashedPassword = await bcrypt.hash(data.kata_sandi, 10)
+            const [result] = await connection.query('INSERT INTO manajer set ?', { nama: data.nama, nomor_pegawai: data.nomor_pegawai, kata_sandi: hashedPassword})
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
-module.exports = manajer
+module.exports = Manajer
