@@ -19,6 +19,52 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     })
 
+    var fotoProfilInput = document.getElementById('fotoProfilInput')
+    var profilePreview = document.getElementById('profilePreview')
+    if (fotoProfilInput && profilePreview) {
+        var defaultImage = profilePreview.getAttribute('data-default') || '/images/assets/default-profile-picture.jpg'
+        
+        var errorFlash = document.querySelector('.flash-error')
+        if (errorFlash) {
+            profilePreview.src = defaultImage
+            if (fotoProfilInput) {
+                fotoProfilInput.value = ''
+            }
+        }
+        
+        fotoProfilInput.addEventListener('change', function (e) {
+            var file = e.target.files[0]
+            if (file) {
+                if (file.type.startsWith('image/')) {
+                    var reader = new FileReader()
+                    reader.onload = function (event) {
+                        profilePreview.src = event.target.result
+                    }
+                    reader.readAsDataURL(file)
+                } else {
+                    alert('Harap pilih file gambar')
+                    fotoProfilInput.value = ''
+                    profilePreview.src = defaultImage
+                }
+            } else {
+                profilePreview.src = defaultImage
+            }
+        })
+        
+        var form = fotoProfilInput.closest('form')
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                var hasError = document.querySelector('.flash-error')
+                if (hasError) {
+                    setTimeout(function() {
+                        profilePreview.src = defaultImage
+                        fotoProfilInput.value = ''
+                    }, 100)
+                }
+            })
+        }
+    }
+
     var container = document.querySelector('.flash-container-auth')
     if (container) {
         var flashes = container.querySelectorAll('.flash')
