@@ -29,6 +29,15 @@ class Karyawan {
             throw err
         }
     }
+
+    static async login(data) {
+        try {
+            const [rows] = await connection.query(`select * from karyawan where nomor_pegawai = ?`, [data.nomor_pegawai])
+            return rows[0]
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = Karyawan

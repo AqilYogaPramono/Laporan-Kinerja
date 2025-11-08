@@ -2,6 +2,7 @@ const express = require('express')
 const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
+const bcrypt = require('bcryptjs')
 
 const modelManajer = require('../models/Manajer')
 const modelKarywan = require('../models/Karyawan')
@@ -128,7 +129,7 @@ router.get('/daftar-karyawan', async (req, res) => {
 
         res.render('auth/registerKaryawan', {
             tim,
-            data: req.flash('data')[0],
+            data: req.flash('data')[0]
         })
     } catch (err) {
         console.error(err)
@@ -249,11 +250,99 @@ router.post('/reg-karyawan', upload.single('foto_profil'), async (req, res) => {
             return res.redirect('/daftar-karyawan')
         }
 
-        console.log(data)
         await modelKarywan.register(data)
 
         req.flash('success', 'Pendaftaran berhasil, silahkan tunggu Admin mengaktivasi akun Anda.')
         return res.redirect('/daftar-karyawan')
+    } catch (err) {
+        console.error(err)
+        req.flash('error', 'Internal Server Error')
+        res.redirect('/')
+    }
+})
+
+router.get('/masuk', async (req, res) => {
+    try {
+        res.render('auth/login', {
+            data: req.flash('data')[0]
+        })
+    } catch (err) {
+        console.error(err)
+        req.flash('error', 'Internal Server Error')
+        res.redirect('/')
+    }
+})
+
+router.post('/log', async (req, res) => {
+    try {
+        const {nomor_pegawai, kata_sandi} = req.body
+        const data = {nomor_pegawai, kata_sandi}
+
+        if (!nomor_pegawai) {
+            req.flash('error', 'Nomor Pegawai wajib di isi')
+            req.flash('data', data)
+            return res.redirect('/masuk')
+        }
+
+        if (!kata_sandi) {
+            req.flash('error', 'kata Sandi wajib di isi')
+            req.flash('data', data)
+            return res.redirect('/masuk')
+        }
+
+        let user = null
+        let role = null
+
+        user = await modelKarywan.login(data)
+        if (user) {
+            role = "Karyawan"
+        } else {
+            user = await modelManajer.login(data)
+            if (user) {
+                if (user.tingkat === 'Manajer') {
+                    role = user.tingkat
+                } else if (user.tingkat === 'Admin') {
+                    role = user.tingkat
+                }
+            }
+        }
+
+        if (!user) {
+            req.flash('error', 'Nomor Pegawai tidak terdaftar')
+            req.flash('data', data)
+            return res.redirect('/masuk')
+        }
+
+        if (user.status !== 'Aktif' && role === "Karyawan") {
+            req.flash('error', 'Silahkan hubungi Manajer untuk aktifasi akun anda.')
+            req.flash('data', data)
+            return res.redirect('/masuk')
+        }
+
+        if (user.status !== 'Aktif' && user.tingkat === 'Manajer') {
+            req.flash('error', 'Silahkan hubungi Admin untuk aktifasi akun anda.')
+            req.flash('data', data)
+            return res.redirect('/masuk')
+        }
+
+        if (user.status !== 'Aktif' && user.tingkat === 'Admin') {
+            req.flash('error', 'Silahkan aktifasi akun anda dulu.')
+            req.flash('data', data)
+            return res.redirect('/masuk')
+        }
+
+        if (!(await bcrypt.compare(data.kata_sandi, user.kata_sandi))) {
+            req.flash('error', 'Kata Sandi yang anda masukkan salah')
+            req.flash('data', data)
+            return res.redirect('/masuk')
+        }
+
+        req.session.userId = user.id
+        req.session.role = role
+
+        if(req.session.role === "Karyawan") return res.redirect('/karyawan/dashboard')
+        if(req.session.role === "Manajer") return res.redirect('/manajer/dashboard')
+        if(req.session.role === "Admin") return res.redirect('/admin/dashboard')
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
