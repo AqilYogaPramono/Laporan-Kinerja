@@ -29,6 +29,33 @@ class Manajer {
             throw err
         }
     }
+
+    static async getNama(id) {
+        try {
+            const [rows] = await connection.query(`select nama from manajer where id = ?`, [id])
+            return rows[0]
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async countManajerProses() {
+        try {
+            const [rows] = await connection.query(`select count(id) as count_manajer_proses from manajer where tingkat = 'Manajer'`)
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async countManajerAktif() {
+        try {
+            const [rows] = await connection.query(`select count(id) as count_manajer_proses from manajer where tingkat = 'Manajer'`)
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = Manajer

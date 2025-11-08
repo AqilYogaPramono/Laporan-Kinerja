@@ -620,6 +620,52 @@ textarea.form-control {
     margin-bottom: 0;
 }
 
+.stat-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    margin-left: 1rem;
+    flex-shrink: 0;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+.page-title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.stat-card-proses {
+    background: linear-gradient(135deg, #001CEB 0%, #0a58ca 100%);
+}
+
+.stat-card-aktif {
+    background: linear-gradient(135deg, #001CEB 0%, #0a58ca 100%);
+}
+
 .card {
     border: none;
     border-radius: 12px;
@@ -687,6 +733,25 @@ textarea.form-control {
     .stat-label {
         font-size: 0.8rem;
     }
+
+    .stat-icon-wrapper {
+        width: 56px;
+        height: 56px;
+        margin-left: 0.75rem;
+    }
+
+    .stat-icon {
+        font-size: 1.75rem;
+    }
+
+    .page-title {
+        font-size: 1.25rem;
+    }
+
+    .page-title-icon {
+        width: 36px;
+        height: 36px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -696,6 +761,29 @@ textarea.form-control {
     
     .stat-number {
         font-size: 1.25rem;
+    }
+
+    .stat-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        margin-left: 0.5rem;
+    }
+
+    .stat-icon {
+        font-size: 1.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .page-title {
+        font-size: 1.1rem;
+    }
+
+    .page-title-icon {
+        width: 32px;
+        height: 32px;
     }
     
     .table thead th,

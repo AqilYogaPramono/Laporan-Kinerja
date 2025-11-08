@@ -11,6 +11,10 @@ const flash = require('express-flash')
 // router auth 
 const auth = require('./routes/auth')
 
+// router admin
+const adminDashboard = require('./routes/admin/dashboard')
+const adminManajer = require('./routes/admin/manajer')
+
 // router karyawan
 const karyawanDashboard = require('./routes/karyawan/dashboard')
 const karyawan = require('./routes/karyawan/karyawan')
@@ -50,6 +54,10 @@ app.use(flash())
 
 // path auth
 app.use('/', auth)
+
+// path admin
+app.use('/admin/dashboard', adminDashboard)
+app.use('/admin/manajer', adminManajer)
 
 // path manajer
 app.use('/karyawan/dashbaord', karyawanDashboard)
