@@ -92,6 +92,18 @@ class Manajer {
             throw err
         }
     }
+
+    static async updatePassword(data, idPengguna) {
+        try {
+            const kata_sandi_hash = await bcrypt.hash(data.kata_sandi_baru, 10)
+            const dataUpdate = { kata_sandi: kata_sandi_hash }
+
+            const [result] = await connection.query('UPDATE manajer SET ? WHERE id = ?',[dataUpdate, idPengguna])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = Manajer
