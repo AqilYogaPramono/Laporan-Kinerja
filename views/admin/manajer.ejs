@@ -1,0 +1,140 @@
+<%- include('../partials/headers/__header-dashboard.ejs', { title: 'Data Manajer' }) %>
+<%- include('../partials/navs/__nav-Admin.ejs') %>
+<%- include('../partials/messages/__messages-dashboard.ejs') %>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title mb-4">
+                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                    <i class="mdi mdi-account-group"></i>
+                </span>
+                Data Manajer
+            </h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <table class="table table-hover table-stacked">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Nomor Pegawai</th>
+                                        <th>Status</th>
+                                        <th>Waktu Dibuat</th>
+                                        <th>Waktu Diverifikasi</th>
+                                        <th style="width: 160px;" class="text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (Array.isArray(data) && data.length) { %>
+                                        <% for (let i = 0; i < data.length; i++) { %>
+                                            <tr>
+                                                <td data-label="No"><%= i + 1 %></td>
+                                                <td data-label="Nama"><%= data[i].nama %></td>
+                                                <td data-label="Nomor Pegawai"><%= data[i].nomor_pegawai %></td>
+                                                <td data-label="Status">
+                                                    <% if (data[i].status === 'Aktif') { %>
+                                                        <span class="badge badge-status badge-status-active">Aktif</span>
+                                                    <% } else if (data[i].status === 'Proses') { %>
+                                                        <span class="badge badge-status badge-status-process">Proses</span>
+                                                    <% } else { %>
+                                                        <span class="badge badge-status badge-status-nonactive">Non-Aktif</span>
+                                                    <% } %>
+                                                </td>
+                                                <td data-label="Waktu Dibuat">
+                                                    <% if (data[i].waktu_dibuat) { %>
+                                                        <%= new Date(data[i].waktu_dibuat).toLocaleString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
+                                                    <% } else { %>
+                                                        -
+                                                    <% } %>
+                                                </td>
+                                                <td data-label="Waktu Diverifikasi">
+                                                    <% if (data[i].waktu_diverifikasi) { %>
+                                                        <%= new Date(data[i].waktu_diverifikasi).toLocaleString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
+                                                    <% } else { %>
+                                                        -
+                                                    <% } %>
+                                                </td>
+                                                <td class="text-right" data-label="Aksi">
+                                                    <div class="btn-actions">
+                                                        <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modalEdit<%= data[i].id %>">Edit</button>
+                                                        <% if (data[i].status === 'Non-Aktif') { %>
+                                                            <button type="button" class="btn btn-sm btn-outline-danger btn-delete" data-url="/admin/manajer/delete/<%= data[i].id %>">Hapus</button>
+                                                        <% } %>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <% } %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="7" class="text-center empty-state">Belum ada data</td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if (Array.isArray(data) && data.length) { %>
+    <% for (let i = 0; i < data.length; i++) { %>
+        <div class="modal fade modal-below-navbar" id="modalEdit<%= data[i].id %>" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Status Manajer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/admin/manajer/edit/<%= data[i].id %>" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="status_<%= data[i].id %>">Status Akun</label>
+                                <select class="form-control" id="status_<%= data[i].id %>" name="status" required>
+                                    <option value="Aktif" <%= data[i].status === 'Aktif' ? 'selected' : '' %>>Aktif</option>
+                                    <option value="Proses" <%= data[i].status === 'Proses' ? 'selected' : '' %>>Proses</option>
+                                    <option value="Non-Aktif" <%= data[i].status === 'Non-Aktif' ? 'selected' : '' %>>Non-Aktif</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <% } %>
+<% } %>
+
+<div class="modal fade modal-below-navbar" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi Hapus</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus manajer ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmDelete">Hapus</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/scripts/__script-dashboard.ejs') %>

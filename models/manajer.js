@@ -56,6 +56,42 @@ class Manajer {
             throw err
         }
     }
+
+    static async getManajer() {
+        try {
+            const [rows] = await connection.query(`select id, nama, nomor_pegawai, status, waktu_dibuat, waktu_diverifikasi from manajer where tingkat = 'Manajer'`)
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async updateStatusAccount(data, id) {
+        try {
+            const [result] = await connection.query('UPDATE manajer SET ?, waktu_diverifikasi = NOW() WHERE id = ?',[data, id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async getById(id) {
+        try {
+            const [rows] = await connection.query(`select * from manajer where id = ?`, [id])
+            return rows[0]
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async deleteAccount(id) {
+        try {
+            const [result] = await connection.query('DELETE FROM manajer WHERE id = ?',[id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = Manajer
