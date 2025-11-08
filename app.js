@@ -21,7 +21,7 @@ const karyawan = require('./routes/karyawan/karyawan')
 const karyawanLaporanKinerja = require('./routes/karyawan/laporanKinerja')
 
 // router manajer
-const manajerDashbaord = require('./routes/manajer/dashbaord')
+const manajerDashboard = require('./routes/manajer/dashboard')
 const manajer = require('./routes/manajer/manajer')
 const manajerKaryawan = require('./routes/manajer/karyawan')
 const manajerTim = require('./routes/manajer/tim')
@@ -65,7 +65,7 @@ app.use('/karyawan', karyawan)
 app.use('/karyawan/laporan-kinerja', karyawanLaporanKinerja)
 
 // path manajer
-app.use('/manajer/dashbaord', manajerDashbaord)
+app.use('/manajer/dashboard', manajerDashboard)
 app.use('/manajer', manajer)
 app.use('/manajer/karyawan', manajerKaryawan)
 app.use('/manajer/tim', manajerTim)

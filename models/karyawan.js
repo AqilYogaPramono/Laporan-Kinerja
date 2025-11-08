@@ -38,6 +38,24 @@ class Karyawan {
             throw err
         }
     }
+
+    static async countKaryawanProses() {
+        try {
+            const [rows] = await connection.query(`select count(id) as count_karyawan_proses from karyawan where status = 'Proses'`)
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async countKaryawanValid() {
+        try {
+            const [rows] = await connection.query(`select count(id) as count_karyawan_proses from karyawan where status = 'Valid'`)
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = Karyawan

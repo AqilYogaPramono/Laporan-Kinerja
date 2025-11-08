@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs')
 
 const modelManajer = require('../models/Manajer')
 const modelKarywan = require('../models/Karyawan')
-const modelTim = require('../models/tim')
+const modelTim = require('../models/Tim')
 
 const router = express.Router()
 

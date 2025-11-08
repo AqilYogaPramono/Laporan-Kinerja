@@ -1,7 +1,7 @@
 const connection = require('../config/db')
 
-class dokumenKinerja {
+class DokumenKinerja {
 
 }
 
-module.exports = dokumenKinerja
+module.exports = DokumenKinerja
