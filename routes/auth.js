@@ -350,4 +350,15 @@ router.post('/log', async (req, res) => {
     }
 })
 
+router.get('/logout', async(req, res) => {
+    try {
+        req.session.destroy()
+        res.redirect('/')
+    } catch (err) {
+        console.log(err)
+        req.flash('error', 'Internal Server Error')
+        res.redirect('/')
+    }
+})
+
 module.exports = router
