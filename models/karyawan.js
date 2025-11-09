@@ -101,6 +101,16 @@ class Karyawan {
             throw err
         }
     }
+
+    static async updatePassword(data, id) {
+        try {
+            const hashedPassword = await bcrypt.hash(data.kata_sandi_baru, 10)
+            const [result] = await connection.query('UPDATE karyawan SET kata_sandi = ? WHERE id = ?',[hashedPassword, id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = Karyawan
