@@ -18,6 +18,24 @@ class LaporanKinerja {
             throw err
         }
     }
+
+    static async getLaporanKinerja() {
+        try {
+            const [rows] = await connection.query(`select id, judul_laporan, dibuat_oleh, dibuat_pada, terakhir_diedit_oleh from laporan_kinerja ORDER BY terakhir_diedit_pada DESC`)
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async store(data) {
+        try {
+            const [rows] = await connection.query(`insert into laporan_kinerja set ?`, [data])
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = LaporanKinerja
