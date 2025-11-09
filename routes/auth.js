@@ -12,7 +12,7 @@ const router = express.Router()
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../public/images/marketers'))
+    cb(null, path.join(__dirname, '../public/images/karyawan'))
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
@@ -24,7 +24,7 @@ const upload = multer({storage})
 
 const deleteUploadedFile = (file) => {
     if (file && file.filename) {
-        const filePath = path.join(__dirname, '../public/images/marketers', file.filename)
+        const filePath = path.join(__dirname, '../public/images/karyawa', file.filename)
         if (fs.existsSync(filePath)) fs.unlinkSync(filePath)
     }
 }

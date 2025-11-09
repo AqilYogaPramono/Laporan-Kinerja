@@ -970,3 +970,231 @@ nav .pagination li.page-item:not(.disabled):focus-within > a.page-link {
         padding: 0.25rem 0.5rem;
     }
 }
+
+.karyawan-list-header {
+    display: grid;
+    grid-template-columns: 60px 1fr 180px 140px 50px;
+    gap: 1rem;
+    padding: 0.875rem 1.25rem;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    border-radius: 12px 12px 0 0;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #495057;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.karyawan-list {
+    margin-top: 0;
+}
+
+.karyawan-list-header-item {
+    display: flex;
+    align-items: center;
+}
+
+.karyawan-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.karyawan-item {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.karyawan-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-color: #dee2e6;
+}
+
+.karyawan-header {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    background: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.karyawan-header:hover {
+    background: #f8f9fa;
+}
+
+.karyawan-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.karyawan-header-main {
+    display: grid;
+    grid-template-columns: 60px 1fr 180px 140px;
+    gap: 1rem;
+    flex: 1;
+    align-items: center;
+}
+
+.karyawan-header-no {
+    font-weight: 500;
+    color: #6c757d;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.karyawan-header-nama {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.karyawan-header-np {
+    color: #495057;
+    font-size: 0.95rem;
+}
+
+.karyawan-header-status {
+    display: flex;
+    align-items: center;
+}
+
+.karyawan-chevron {
+    color: #6c757d;
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    width: 50px;
+    text-align: center;
+}
+
+.karyawan-header[aria-expanded="true"] .karyawan-chevron {
+    transform: rotate(180deg);
+}
+
+.karyawan-detail {
+    padding: 1.25rem;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.karyawan-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.karyawan-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.karyawan-detail-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.karyawan-detail-value {
+    color: #212529;
+    font-size: 0.95rem;
+}
+
+.karyawan-photo {
+    transition: transform 0.2s ease;
+}
+
+.karyawan-photo:hover {
+    transform: scale(1.05);
+}
+
+.karyawan-detail-actions {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+    margin-top: 1rem;
+}
+
+@media (max-width: 991.98px) {
+    .karyawan-list-header {
+        display: none;
+    }
+
+    .karyawan-header-main {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .karyawan-header-no {
+        order: 1;
+        text-align: left;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .karyawan-header-nama {
+        order: 2;
+        font-size: 1.1rem;
+    }
+
+    .karyawan-header-np {
+        order: 3;
+        font-size: 0.9rem;
+    }
+
+    .karyawan-header-status {
+        order: 4;
+    }
+
+    .karyawan-chevron {
+        position: absolute;
+        top: 1rem;
+        right: 1.25rem;
+    }
+
+    .karyawan-header {
+        position: relative;
+        padding-right: 3rem;
+    }
+
+    .karyawan-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .karyawan-detail-actions {
+        flex-direction: column;
+    }
+
+    .karyawan-detail-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .karyawan-header {
+        padding: 0.875rem 1rem;
+        padding-right: 2.5rem;
+    }
+
+    .karyawan-detail {
+        padding: 1rem;
+    }
+
+    .karyawan-header-main {
+        gap: 0.375rem;
+    }
+
+    .karyawan-header-nama {
+        font-size: 1rem;
+    }
+}

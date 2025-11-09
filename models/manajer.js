@@ -68,7 +68,7 @@ class Manajer {
 
     static async updateStatusAccount(data, id) {
         try {
-            const [result] = await connection.query('UPDATE manajer SET ?, waktu_diverifikasi = NOW() WHERE id = ?',[data, id])
+            const [result] = await connection.query('UPDATE manajer SET status = ?, waktu_diverifikasi = NOW() WHERE id = ?',[data.status, id])
             return result
         } catch (err) {
             throw err

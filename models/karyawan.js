@@ -56,6 +56,42 @@ class Karyawan {
             throw err
         }
     }
+
+    static async getKaryawan() {
+        try {
+            const [rows] = await connection.query(`select id, foto_profil, nama, nomor_pegawai, nomor_whatsapp, status, waktu_dibuat, waktu_diverifikasi from karyawan`)
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async updateStatusAccount(data, id) {
+        try {
+            const [result] = await connection.query('UPDATE karyawan SET status = ?, waktu_diverifikasi = NOW() WHERE id = ?',[data.status, id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async getById(id) {
+        try {
+            const [rows] = await connection.query(`select * from karyawan where id = ?`, [id])
+            return rows[0]
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async deleteAccount(id) {
+        try {
+            const [result] = await connection.query('DELETE FROM karyawan WHERE id = ?',[id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = Karyawan
