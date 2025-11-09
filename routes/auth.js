@@ -215,6 +215,21 @@ router.post('/reg-karyawan', upload.single('foto_profil'), async (req, res) => {
             return res.redirect('/daftar-karyawan')
         }
 
+        if (req.file && req.file.size > 2 * 1024 * 1024) {
+            deleteUploadedFile(req.file)
+            req.flash('error', 'Ukuran foto profil tidak boleh lebih dari 2Mb.')
+            req.flash('data', data)
+            return res.redirect('/daftar-karyawan')
+        }
+
+        const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp']
+        if (req.file && !allowedFormats.includes(req.file.mimetype)) {
+            deleteUploadedFile(req.file)
+            req.flash('error', 'Format foto harus JPG, JPEG, PNG, atau WEBP.')
+            req.flash('data', data)
+            return res.redirect('/daftar-karyawan')
+        }
+
         if (kata_sandi.length < 6) {
             deleteUploadedFile(req.file)
             req.flash('error', 'Kata sandi minimal harus 6 karakter.')
