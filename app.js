@@ -19,6 +19,7 @@ const adminManajer = require('./routes/admin/manajer')
 const karyawanDashboard = require('./routes/karyawan/dashboard')
 const karyawan = require('./routes/karyawan/karyawan')
 const karyawanLaporanKinerja = require('./routes/karyawan/laporanKinerja')
+const karyawanDokumenKinerja = require('./routes/karyawan/dokumenKinerja')
 
 // router manajer
 const manajerDashboard = require('./routes/manajer/dashboard')
@@ -59,10 +60,11 @@ app.use('/', auth)
 app.use('/admin/dashboard', adminDashboard)
 app.use('/admin/manajer', adminManajer)
 
-// path manajer
+// path karyawan
 app.use('/karyawan/dashboard', karyawanDashboard)
 app.use('/karyawan', karyawan)
 app.use('/karyawan/laporan-kinerja', karyawanLaporanKinerja)
+app.use('/karyawan/dokumen-kinerja', karyawanDokumenKinerja)
 
 // path manajer
 app.use('/manajer/dashboard', manajerDashboard)

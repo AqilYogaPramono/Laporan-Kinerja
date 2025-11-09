@@ -44,6 +44,10 @@
                               <td class="text-right" data-label="Aksi">
                                 <div class="btn-actions">
                                   <a href="/karyawan/laporan-kinerja/detail/<%= item.id %>" class="btn btn-sm btn-outline-info">Detail</a>
+                                  <% if (item.id_karyawan == userId) { %>
+                                    <a href="/karyawan/laporan-kinerja/edit/<%= item.id %>" class="btn btn-sm btn-outline-warning">Edit</a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-delete" data-url="/karyawan/laporan-kinerja/hapus/<%= item.id %>">Hapus</button>
+                                  <% } %>
                                 </div>
                               </td>
                             </tr>
@@ -61,6 +65,26 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade modal-below-navbar" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Konfirmasi Hapus</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin menghapus laporan kinerja ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger" id="btnConfirmDelete">Hapus</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <%- include('../../partials/scripts/__script-dashboard.ejs') %>

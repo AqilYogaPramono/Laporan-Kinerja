@@ -219,3 +219,16 @@
         setupImagePreview();
     }
 })();
+
+$(document).on('click', '.btn-delete-dokumen', function() {
+    const url = $(this).data('url')
+    $('#btnConfirmDeleteDokumen').off('click').on('click', function() {
+        const form = $('<form>', {
+            'method': 'POST',
+            'action': url
+        })
+        $('body').append(form)
+        form.submit()
+    })
+    $('#modalConfirmDeleteDokumen').modal('show')
+})
