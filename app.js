@@ -60,7 +60,7 @@ app.use('/admin/dashboard', adminDashboard)
 app.use('/admin/manajer', adminManajer)
 
 // path manajer
-app.use('/karyawan/dashbaord', karyawanDashboard)
+app.use('/karyawan/dashboard', karyawanDashboard)
 app.use('/karyawan', karyawan)
 app.use('/karyawan/laporan-kinerja', karyawanLaporanKinerja)
 
