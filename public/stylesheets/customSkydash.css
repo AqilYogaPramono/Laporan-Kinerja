@@ -900,6 +900,53 @@ nav .pagination li.page-item:not(.disabled):focus-within > a.page-link {
 }
 
 /* detail page responsive layout */
+.detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.detail-title {
+    flex: 1 1 auto;
+    margin-bottom: 0 !important;
+}
+
+.detail-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.detail-actions .btn {
+    min-width: 120px;
+    font-weight: 500;
+    padding-inline: 0.85rem;
+}
+
+@media (max-width: 767.98px) {
+    .detail-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .detail-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .detail-actions .btn {
+        flex: 1 1 auto;
+        width: 100%;
+        min-width: 0;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
 .btn-actions-mobile {
     flex-wrap: wrap;
     gap: 0.5rem;

@@ -16,11 +16,11 @@
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="card-title mb-0"><%= laporanKinerjaData.judul_laporan %></h4>
-                    <div>
-                      <a href="/karyawan/dokumen-kinerja/buat-dokumen/<%= laporanKinerjaData.id %>" class="btn btn-primary btn-sm mr-2">Tambah Dokumen</a>
-                      <a href="/karyawan/dokumen-kinerja/buat-link/<%= laporanKinerjaData.id %>" class="btn btn-success btn-sm mr-2">Tambah Link</a>
+                  <div class="detail-header mb-3">
+                    <h4 class="card-title mb-0 detail-title"><%= laporanKinerjaData.judul_laporan %></h4>
+                    <div class="detail-actions">
+                      <a href="/karyawan/dokumen-kinerja/buat-dokumen/<%= laporanKinerjaData.id %>" class="btn btn-primary btn-sm">Tambah Dokumen</a>
+                      <a href="/karyawan/dokumen-kinerja/buat-link/<%= laporanKinerjaData.id %>" class="btn btn-success btn-sm">Tambah Link</a>
                       <a href="/karyawan/laporan-kinerja" class="btn btn-light btn-sm">Kembali</a>
                     </div>
                   </div>
