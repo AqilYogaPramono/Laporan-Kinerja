@@ -42,7 +42,7 @@ router.post('/delete/:id', authAdmin, async(req, res) => {
 
         const manajer = await modelManajer.getById(id)
 
-        if (manajer.status != 'Non-Aktid') {
+        if (manajer.status != 'Non-Aktif') {
             req.flash('error', 'Akun harus Non Aktif')
             return res.redirect('/admin/manajer')
         }
