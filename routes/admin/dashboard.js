@@ -10,7 +10,6 @@ router.get('/', authAdmin, async (req, res) => {
         const admin = await modelManajer.getNama(req.session.userId)
         const countManajerProses = await modelManajer.countManajerProses()
         const countManajerAktif = await modelManajer.countManajerAktif()
-        console.log(admin, req.session.userId)
 
         res.render('admin/dashboard', { admin, countManajerProses: countManajerProses[0].count_manajer_proses, countManajerAktif: countManajerAktif[0].count_manajer_proses })
     } catch (err) {
