@@ -50,7 +50,7 @@ class Karyawan {
 
     static async countKaryawanValid() {
         try {
-            const [rows] = await connection.query(`select count(id) as count_karyawan_proses from karyawan where status = 'Valid'`)
+            const [rows] = await connection.query(`select count(id) as count_karyawan_valid from karyawan where status = 'Aktif'`)
             return rows
         } catch (err) {
             throw err
@@ -59,7 +59,7 @@ class Karyawan {
 
     static async getKaryawan() {
         try {
-            const [rows] = await connection.query(`select id, foto_profil, nama, nomor_pegawai, nomor_whatsapp, status, waktu_dibuat, waktu_diverifikasi from karyawan`)
+            const [rows] = await connection.query(`select id, foto_profil, nama, nomor_pegawai, nomor_whatsapp, status, waktu_dibuat, waktu_diverifikasi from karyawan  ORDER BY waktu_dibuat DESC`)
             return rows
         } catch (err) {
             throw err

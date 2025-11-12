@@ -14,7 +14,7 @@ router.get('/', authManajer, async (req, res) => {
         const countKaryawanValidData = await modelKaryawan.countKaryawanValid()
         const countDokumenLaporanData = await modelLaporanKinerja.countLaporanKinerja()
 
-        res.render('manajer/dashboard', { manajer, countKaryawanProses: countKaryawanProsesData[0].count_karyawan_proses, countKaryawanValid: countKaryawanValidData[0].count_karyawan_proses, countDokumenLaporan: countDokumenLaporanData[0].count_laporan_kinerja })
+        res.render('manajer/dashboard', { manajer, countKaryawanProses: countKaryawanProsesData[0].count_karyawan_proses, countKaryawanValid: countKaryawanValidData[0].count_karyawan_valid, countDokumenLaporan: countDokumenLaporanData[0].count_laporan_kinerja })
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
