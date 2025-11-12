@@ -1,0 +1,37 @@
+<%- include('../../partials/headers/__header-dashboard.ejs', { title: 'Edit Tim' }) %>
+<%- include('../../partials/navs/__nav-admin.ejs') %>
+<%- include('../../partials/messages/__messages-dashboard.ejs') %>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title mb-4">
+                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                    <i class="mdi mdi-account-edit"></i>
+                </span>
+                Edit Tim
+            </h3>
+        </div>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-description">Ubah nama tim</p>
+                  <form action="/admin/tim/update/<%= data.id %>" method="POST" data-loading>
+                    <div class="form-group">
+                      <label for="nama_tim">Nama Tim</label>
+                      <input type="text" class="form-control" id="nama_tim" name="nama_tim" value="<%= data.nama_tim %>" placeholder="Masukkan nama tim" required>
+                    </div>
+                    <div class="d-flex">
+                      <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                      <a href="/admin/tim" class="btn btn-light">Kembali</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../partials/scripts/__script-dashboard.ejs') %>

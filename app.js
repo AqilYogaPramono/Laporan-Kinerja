@@ -14,6 +14,7 @@ const auth = require('./routes/auth')
 // router admin
 const adminDashboard = require('./routes/admin/dashboard')
 const adminManajer = require('./routes/admin/manajer')
+const adminTim = require('./routes/admin/tim')
 
 // router karyawan
 const karyawanDashboard = require('./routes/karyawan/dashboard')
@@ -25,7 +26,6 @@ const karyawanDokumenKinerja = require('./routes/karyawan/dokumenKinerja')
 const manajerDashboard = require('./routes/manajer/dashboard')
 const manajer = require('./routes/manajer/manajer')
 const manajerKaryawan = require('./routes/manajer/karyawan')
-const manajerTim = require('./routes/manajer/tim')
 const manajerLaporanKinerja = require('./routes/manajer/laporanKinerja')
 
 var app = express()
@@ -59,6 +59,7 @@ app.use('/', auth)
 // path admin
 app.use('/admin/dashboard', adminDashboard)
 app.use('/admin/manajer', adminManajer)
+app.use('/admin/tim', adminTim)
 
 // path karyawan
 app.use('/karyawan/dashboard', karyawanDashboard)
@@ -70,7 +71,6 @@ app.use('/karyawan/dokumen-kinerja', karyawanDokumenKinerja)
 app.use('/manajer/dashboard', manajerDashboard)
 app.use('/manajer', manajer)
 app.use('/manajer/karyawan', manajerKaryawan)
-app.use('/manajer/tim', manajerTim)
 app.use('/manajer/laporan-kinerja', manajerLaporanKinerja)
 
 // catch 404 and forward to error handler
