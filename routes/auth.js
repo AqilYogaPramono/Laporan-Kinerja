@@ -37,7 +37,7 @@ router.get('/daftar-manajer', async (req, res) => {
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
-        res.redirect('/')
+        res.redirect('/daftar-manajer')
     }
 })
 
@@ -119,7 +119,7 @@ router.post('/reg-manajer', async (req, res) => {
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
-        res.redirect('/')
+        res.redirect('/daftar-manajer')
     }
 })
 
@@ -134,7 +134,7 @@ router.get('/daftar-karyawan', async (req, res) => {
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
-        res.redirect('/')
+        res.redirect('/daftar-karyawan')
     }
 })
 
@@ -267,16 +267,16 @@ router.post('/reg-karyawan', upload.single('foto_profil'), async (req, res) => {
 
         await modelKarywan.register(data)
 
-        req.flash('success', 'Pendaftaran berhasil, silahkan tunggu Admin mengaktivasi akun Anda.')
+        req.flash('success', 'Pendaftaran berhasil, silahkan tunggu Manajer mengaktivasi akun Anda.')
         return res.redirect('/daftar-karyawan')
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
-        res.redirect('/')
+        res.redirect('/daftar-karyawan')
     }
 })
 
-router.get('/masuk', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         res.render('auth/login', {
             data: req.flash('data')[0]
@@ -296,13 +296,13 @@ router.post('/log', async (req, res) => {
         if (!nomor_pegawai) {
             req.flash('error', 'Nomor Pegawai wajib di isi')
             req.flash('data', data)
-            return res.redirect('/masuk')
+            return res.redirect('/')
         }
 
         if (!kata_sandi) {
             req.flash('error', 'kata Sandi wajib di isi')
             req.flash('data', data)
-            return res.redirect('/masuk')
+            return res.redirect('/')
         }
 
         let user = null
@@ -325,31 +325,31 @@ router.post('/log', async (req, res) => {
         if (!user) {
             req.flash('error', 'Nomor Pegawai tidak terdaftar')
             req.flash('data', data)
-            return res.redirect('/masuk')
+            return res.redirect('/')
         }
 
         if (user.status !== 'Aktif' && role === "Karyawan") {
             req.flash('error', 'Silahkan hubungi Manajer untuk aktifasi akun anda.')
             req.flash('data', data)
-            return res.redirect('/masuk')
+            return res.redirect('/')
         }
 
         if (user.status !== 'Aktif' && user.tingkat === 'Manajer') {
             req.flash('error', 'Silahkan hubungi Admin untuk aktifasi akun anda.')
             req.flash('data', data)
-            return res.redirect('/masuk')
+            return res.redirect('/')
         }
 
         if (user.status !== 'Aktif' && user.tingkat === 'Admin') {
             req.flash('error', 'Silahkan aktifasi akun anda dulu.')
             req.flash('data', data)
-            return res.redirect('/masuk')
+            return res.redirect('/')
         }
 
         if (!(await bcrypt.compare(data.kata_sandi, user.kata_sandi))) {
             req.flash('error', 'Kata Sandi yang anda masukkan salah')
             req.flash('data', data)
-            return res.redirect('/masuk')
+            return res.redirect('/')
         }
 
         req.session.userId = user.id
