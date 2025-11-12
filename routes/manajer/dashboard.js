@@ -18,7 +18,7 @@ router.get('/', authManajer, async (req, res) => {
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
-        res.redirect('/masuk')
+        res.redirect('/')
     }
 })
 

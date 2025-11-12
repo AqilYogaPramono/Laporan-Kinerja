@@ -4,7 +4,7 @@ const authAdmin = async (req, res, next) => {
             return next()
         } else {
             req.flash('error', 'Anda tidak memiliki akses kehalaman ini')
-            res.redirect('/masuk')
+            res.redirect('/')
         }
     } catch(err) {
         console.log(err)
@@ -20,7 +20,7 @@ const authKaryawan = async (req, res, next) => {
             return next()
         } else {
             req.flash('error', 'Anda tidak memiliki akses kehalaman ini')
-            res.redirect('/masuk')
+            res.redirect('/')
         }
     } catch(err) {
         console.log(err)
@@ -35,7 +35,7 @@ const authManajer = async (req, res, next) => {
             return next()
         } else {
             req.flash('error', 'Anda tidak memiliki akses kehalaman ini')
-            res.redirect('/masuk')
+            res.redirect('/')
         }
     } catch(err) {
         console.log(err)
