@@ -141,7 +141,7 @@ router.get('/daftar-karyawan', async (req, res) => {
 router.post('/reg-karyawan', upload.single('foto_profil'), async (req, res) => {
     try {
         const { nama, nomor_pegawai, nomor_whatsapp, id_tim, kata_sandi, konfirmasi_kata_sandi } = req.body
-        const foto_profil = req.file ? req.file.filename : 'null'
+        const foto_profil = req.file ? req.file.filename : null
         const data = { nama, foto_profil, nomor_pegawai, nomor_whatsapp, id_tim, kata_sandi, }
 
         if (!nama) {
