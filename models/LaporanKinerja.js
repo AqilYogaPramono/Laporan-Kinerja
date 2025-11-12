@@ -21,7 +21,7 @@ class LaporanKinerja {
 
     static async getLaporanKinerja(id_karyawan) {
         try {
-            const [rows] = await connection.query(`select id, judul_laporan, dibuat_oleh, dibuat_pada, terakhir_diedit_oleh, id_karyawan from laporan_kinerja where id_karyawan = ? ORDER BY terakhir_diedit_pada DESC`, [id_karyawan])
+            const [rows] = await connection.query(`SELECT l.id, l.judul_laporan, l.dibuat_oleh, l.dibuat_pada, l.terakhir_diedit_oleh, l.id_karyawan, k.nama AS nama_karyawan, k.id_tim FROM laporan_kinerja AS l JOIN karyawan AS k ON l.id_karyawan = k.id WHERE k.id_tim = ( SELECT id_tim FROM karyawan WHERE id = ? ) ORDER BY l.terakhir_diedit_pada DESC`, [id_karyawan])
             return rows
         } catch (err) {
             throw err
