@@ -1,14 +1,14 @@
 const express = require('express')
 
 const modelTim = require('../../models/Tim')
-const modelManajer = require('../../models/Manajer')
+const modelAdmin = require('../../models/Admin')
 const {authAdmin} = require('../../middleware/auth')
 
 const router = express.Router()
 
 router.get('/', authAdmin, async (req, res) => {
     try {
-        const admin = await modelManajer.getNama(req.session.userId)
+        const admin = await modelAdmin.getNama(req.session.userId)
 
         const data = await modelTim.getAll()
 
@@ -22,7 +22,7 @@ router.get('/', authAdmin, async (req, res) => {
 
 router.get('/buat', authAdmin, async (req, res) => {
     try {
-        const admin = await modelManajer.getNama(req.session.userId)
+        const admin = await modelAdmin.getNama(req.session.userId)
 
         res.render('admin/tim/buat', { 
             admin,
@@ -67,7 +67,7 @@ router.get('/edit/:id', authAdmin, async(req, res) => {
     try {
         const {id} = req.params
 
-        const admin = await modelManajer.getNama(req.session.userId)
+        const admin = await modelAdmin.getNama(req.session.userId)
 
         const data = await modelTim.getById(id)
 
