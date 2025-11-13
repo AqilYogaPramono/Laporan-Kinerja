@@ -14,7 +14,7 @@ class Manajer {
     static async register(data) {
         try {
             const hashedPassword = await bcrypt.hash(data.kata_sandi, 10)
-            const [result] = await connection.query('INSERT INTO manajer set ?', { nama: data.nama, nomor_pegawai: data.nomor_pegawai, kata_sandi: hashedPassword})
+            const [result] = await connection.query('INSERT INTO manajer set ?', { nama: data.nama, nomor_pegawai: data.nomor_pegawai, id_tim: data.id_tim,  kata_sandi: hashedPassword})
             return result
         } catch (err) {
             throw err
