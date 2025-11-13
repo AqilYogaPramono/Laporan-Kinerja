@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 class Admin {
     static async login(data) {
         try {
-            const [rows] = await connection.query(`select * from admin where nomor_admin = ? `, [data.nomor_admin])
+            const [rows] = await connection.query(`select * from admin where nomor_admin = ? `, [data.nomor_pegawai])
             return rows[0]
         } catch (err) {
             throw err

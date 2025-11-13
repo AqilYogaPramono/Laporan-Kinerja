@@ -324,10 +324,11 @@ router.post('/log', async (req, res) => {
         } else {
             user = await modelManajer.login(data)
             if (user) {
-                if (user.tingkat === 'Manajer') {
-                    role = user.tingkat
-                } else if (user.tingkat === 'Admin') {
-                    role = user.tingkat
+                role = "Manajer"
+            } else {
+                user = await modelAdmin.login(data)
+                if (user) {
+                    role = "Admin"
                 }
             }
         }
@@ -338,20 +339,14 @@ router.post('/log', async (req, res) => {
             return res.redirect('/')
         }
 
-        if (user.status !== 'Aktif' && role === "Karyawan") {
+        if (user.status !== 'Aktif' && role == "Karyawan") {
             req.flash('error', 'Silahkan hubungi Manajer untuk aktifasi akun anda.')
             req.flash('data', data)
             return res.redirect('/')
         }
 
-        if (user.status !== 'Aktif' && user.tingkat === 'Manajer') {
+        if (user.status !== 'Aktif' && role == 'Manajer') {
             req.flash('error', 'Silahkan hubungi Admin untuk aktifasi akun anda.')
-            req.flash('data', data)
-            return res.redirect('/')
-        }
-
-        if (user.status !== 'Aktif' && user.tingkat === 'Admin') {
-            req.flash('error', 'Silahkan aktifasi akun anda dulu.')
             req.flash('data', data)
             return res.redirect('/')
         }
