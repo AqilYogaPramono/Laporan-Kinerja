@@ -4,6 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const bcrypt = require('bcryptjs')
 
+const modelAdmin = require('../models/Admin')
 const modelManajer = require('../models/Manajer')
 const modelKarywan = require('../models/Karyawan')
 const modelTim = require('../models/Tim')
@@ -31,8 +32,11 @@ const deleteUploadedFile = (file) => {
 
 router.get('/daftar-manajer', async (req, res) => {
     try {
+        const tim = await modelTim.getAll()
+
         res.render('auth/registerManajer', {
             data: req.flash('data')[0],
+            tim
         })
     } catch (err) {
         console.error(err)
@@ -43,8 +47,8 @@ router.get('/daftar-manajer', async (req, res) => {
 
 router.post('/reg-manajer', async (req, res) => {
     try {
-        const { nama, nomor_pegawai, kata_sandi, konfirmasi_kata_sandi } = req.body
-        const data = { nama, nomor_pegawai, kata_sandi }
+        const { nama, nomor_pegawai, id_tim, kata_sandi, konfirmasi_kata_sandi } = req.body
+        const data = { nama, nomor_pegawai, id_tim, kata_sandi }
 
         if (!nama) {
             req.flash('error', 'Nama wajib di isi')
@@ -60,6 +64,12 @@ router.post('/reg-manajer', async (req, res) => {
 
         if (!kata_sandi) {
             req.flash('error', 'Kata Sandi wajib di isi')
+            req.flash('data', data)
+            return res.redirect('/daftar-manajer')
+        }
+
+        if (!id_tim) {
+            req.flash('error', 'Tim wajib di isi')
             req.flash('data', data)
             return res.redirect('/daftar-manajer')
         }
