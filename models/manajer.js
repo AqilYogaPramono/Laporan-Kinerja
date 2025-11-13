@@ -50,7 +50,7 @@ class Manajer {
 
     static async countManajerAktif() {
         try {
-            const [rows] = await connection.query(`select count(id) as count_manajer_proses from manajer where status = 'Aktif'`)
+            const [rows] = await connection.query(`select count(id) as count_manajer_aktif from manajer where status = 'Aktif'`)
             return rows
         } catch (err) {
             throw err

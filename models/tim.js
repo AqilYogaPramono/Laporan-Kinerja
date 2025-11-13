@@ -66,8 +66,17 @@ class tim {
 
     static async checkTimUsed(id) {
         try {
-            const [rows] = await connection.query(`SELECT id FROM karyawan WHERE id_tim = ?`, [id])
+            const [rows] = await connection.query(`SELECT id FROM karyawan WHERE id_tim = ? and from manajer where id_tim = ?`, [id, id])
             return rows.length > 0
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async countTim() {
+        try {
+            const [rows] = await connection.query(`SELECT count(id) as count_tim FROM tim`)
+            return rows
         } catch (err) {
             throw err
         }
