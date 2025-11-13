@@ -59,7 +59,7 @@ class Manajer {
 
     static async getManajer() {
         try {
-            const [rows] = await connection.query(`select id, nama, nomor_pegawai, status, waktu_dibuat, waktu_diverifikasi from manajer where tingkat = 'Manajer' ORDER BY waktu_dibuat DESC`)
+            const [rows] = await connection.query(`select id, nama, nomor_pegawai, status, waktu_dibuat, waktu_diverifikasi from manajer ORDER BY waktu_dibuat DESC`)
             return rows
         } catch (err) {
             throw err

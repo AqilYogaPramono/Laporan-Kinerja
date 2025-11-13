@@ -1,5 +1,6 @@
 const express = require('express')
 
+const modelAdmin = require('../../models/Admin')
 const modelManajer = require('../../models/Manajer')
 const { authAdmin } = require('../../middleware/auth')
 
@@ -7,7 +8,7 @@ const router = express.Router()
 
 router.get('/', authAdmin, async (req, res) => {
     try {
-        const admin = await modelManajer.getNama(req.session.userId)
+        const admin = await modelAdmin.getNama(req.session.userId)
 
         const data = await modelManajer.getManajer()
 
