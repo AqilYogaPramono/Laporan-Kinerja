@@ -54,6 +54,15 @@ class DokumenKinerja {
             throw err
         }
     }
+
+    static async getDokumenKinerja() {
+        try {
+            const [rows] = await connection.query(`select id, tipe_file, nama_file, file, dibuat_oleh, dibuat_pada from dokumen_kinerja ORDER BY dibuat_pada DESC`, [])
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = DokumenKinerja

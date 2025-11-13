@@ -39,7 +39,7 @@ class LaporanKinerja {
 
     static async getLaporanKinerjaById(id) {
         try {
-            const [rows] = await connection.query(`select id, judul_laporan, dibuat_oleh, dibuat_pada, terakhir_diedit_pada, terakhir_diedit_oleh, id_karyawan from laporan_kinerja where id = ?`, [id])
+            const [rows] = await connection.query(`select * from laporan_kinerja where id = ?`, [id])
             return rows[0]
         } catch (err) {
             throw err
@@ -76,6 +76,15 @@ class LaporanKinerja {
     static async lastUpdate(data, id) {
         try {
             const [rows] = await connection.query(`update laporan_kinerja set ? where id = ?`, [data, id])
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async getAllLaporanKinerja() {
+        try {
+            const [rows] = await connection.query(`SELECT l.id, l.judul_laporan, l.dibuat_oleh, l.dibuat_pada, l.terakhir_diedit_oleh, k.nama AS nama_karyawan FROM laporan_kinerja AS l JOIN karyawan AS k ON l.id_karyawan = k.id ORDER BY l.terakhir_diedit_pada DESC`,)
             return rows
         } catch (err) {
             throw err
