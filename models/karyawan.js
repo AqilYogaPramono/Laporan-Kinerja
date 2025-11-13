@@ -57,9 +57,9 @@ class Karyawan {
         }
     }
 
-    static async getKaryawan() {
+    static async getKaryawanBySameTeam(id) {
         try {
-            const [rows] = await connection.query(`select id, foto_profil, nama, nomor_pegawai, nomor_whatsapp, status, waktu_dibuat, waktu_diverifikasi from karyawan  ORDER BY waktu_dibuat DESC`)
+            const [rows] = await connection.query(`SELECT k.id, k.foto_profil, k.nama, k.nomor_pegawai, k.nomor_whatsapp, k.status, k.waktu_dibuat, k.waktu_diverifikasi FROM karyawan k JOIN tim t ON k.id_tim = t.id JOIN manajer m ON m.id_tim = t.id WHERE m.id = ? ORDER BY waktu_dibuat DESC`, [id])
             return rows
         } catch (err) {
             throw err

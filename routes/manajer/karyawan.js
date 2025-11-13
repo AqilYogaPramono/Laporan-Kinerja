@@ -21,7 +21,7 @@ router.get('/', authManajer, async (req, res) => {
     try {
         const manajer = await modelManajer.getNama(req.session.userId)
 
-        const data = await modelKaryawan.getKaryawan()
+        const data = await modelKaryawan.getKaryawanBySameTeam(req.session.userId)
 
         res.render('manajer/karyawan', {data, manajer})
     } catch(err) {
