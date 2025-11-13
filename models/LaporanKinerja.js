@@ -99,6 +99,15 @@ class LaporanKinerja {
             throw err
         }
     }
+
+    static async getLaporanKinerjaByIdManajer(id_manajer) {
+        try {
+            const [rows] = await connection.query(`SELECT l.id, l.judul_laporan, l.dibuat_oleh, l.dibuat_pada, l.terakhir_diedit_oleh, l.id_karyawan, k.nama AS nama_karyawan, k.id_tim FROM laporan_kinerja AS l JOIN karyawan AS k ON l.id_karyawan = k.id WHERE k.id_tim = ( SELECT id_tim FROM manajer WHERE id = ? ) ORDER BY l.terakhir_diedit_pada DESC`, [id_manajer])
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = LaporanKinerja
