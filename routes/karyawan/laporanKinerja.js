@@ -2,6 +2,7 @@ const express = require('express')
 
 const modelKaryawan = require('../../models/Karyawan')
 const modelLaporanKinerja = require('../../models/LaporanKinerja')
+const modelDokumenKinerja = require('../../models/DokumenKinerja')
 const {authKaryawan} = require('../../middleware/auth')
 
 const router = express.Router()
@@ -69,15 +70,20 @@ router.post('/buat', authKaryawan, async (req, res) => {
 router.get('/detail/:id', authKaryawan, async (req, res) => {
     try {
         const {id} = req.params
-        const karyawan = await modelKaryawan.getNama(req.session.userId)
+        const karyawan = await modelKaryawan.getById(req.session.userId)
         const laporanKinerjaData = await modelLaporanKinerja.getLaporanKinerjaById(id)
+        const checkIdTeamByIdKaryawan = await modelKaryawan.getById(laporanKinerjaData.id_karyawan)
         
         if (!laporanKinerjaData) {
             req.flash('error', 'Laporan kinerja tidak ditemukan')
             return res.redirect('/karyawan/laporan-kinerja')
         }
 
-        const modelDokumenKinerja = require('../../models/DokumenKinerja')
+        if (karyawan.id_tim != checkIdTeamByIdKaryawan.id_tim) {
+            req.flash('error', 'Anda tidak mendaptkan akses ke halaman ini.')
+            return res.redirect('/karyawan/laporan-kinerja')
+        }
+
         const dokumenKinerjaData = await modelDokumenKinerja.getDokumenKinerjaByLaporanId(id)
 
         res.render('karyawan/laporanKinerja/detail', {
