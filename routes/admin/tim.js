@@ -113,7 +113,12 @@ router.post('/delete/:id', authAdmin, async (req, res) => {
     try {
         const {id} = req.params
 
-        if (await modelTim.checkTimUsed(id)) {
+        if (await modelTim.checkTimUsedManajer(id)) {
+            req.flash("error", "Tim masih digunakan oleh karyawan")
+            return res.redirect('/admin/tim')
+        }
+
+        if (await modelTim.checkTimUsedKaryawan(id)) {
             req.flash("error", "Tim masih digunakan oleh karyawan")
             return res.redirect('/admin/tim')
         }
