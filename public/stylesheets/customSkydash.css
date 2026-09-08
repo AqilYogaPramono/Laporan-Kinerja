@@ -1,4 +1,3 @@
-/* delete container padding  start */
 .container,
 .container-fluid,
 .container-lg,
@@ -8,11 +7,7 @@
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
-/* delete container padding  end */
 
-
-/* sidebar custom color start */
-/* Primary color variable for consistency */
 :root {
     --sidebar-primary: #001CEB;
     --sidebar-text: #fff;
@@ -29,7 +24,6 @@
     color: var(--sidebar-text) !important;
 }
 
-/* tambahan spesifik untuk memastikan warna parent menu sesuai */
 .sidebar .nav:not(.sub-menu) > .nav-item > .nav-link[aria-expanded="true"],
 .sidebar .nav:not(.sub-menu) > .nav-item.active > .nav-link,
 .sidebar .nav > .nav-item > .nav-link[aria-expanded="true"] {
@@ -37,14 +31,12 @@
     color: var(--sidebar-text) !important;
 }
 
-/* tiny left indicator used by template */
 .sidebar .nav .nav-item .nav-link:before,
 .sidebar .nav .nav-item.active > .nav-link:before,
 .sidebar .nav .nav-item:hover > .nav-link:before {
     background-color: var(--sidebar-primary) !important;
 }
 
-/* collapse chevron/arrow color */
 .sidebar .nav .nav-item .menu-arrow {
     color: #6c757d !important;
 }
@@ -64,7 +56,6 @@
     background: var(--sidebar-primary) !important;
     background-color: var(--sidebar-primary) !important;
 }
-/* sidebar custom color end */
 
 @media (min-width: 992px) {
     :root { --navbar-height: 70px; }
@@ -98,7 +89,6 @@
     }
 }
 
-/* stacked table for mobile */
 .table-stacked thead { display: table-header-group; }
 @media (max-width: 575.98px) {
     .table-stacked thead { display: none; }
@@ -107,7 +97,6 @@
     .table-stacked td::before { content: attr(data-label); font-weight: 600; color: #6c757d; }
 }
 
-/* full-page loading overlay */
 .loading-overlay {
     position: fixed;
     inset: 0;
@@ -128,7 +117,6 @@
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* modal below navbar */
 .modal-below-navbar .modal-dialog {
     margin: 80px auto 1.75rem auto;
 }
@@ -158,7 +146,6 @@
     }
 }
 
-/* image preview modal top center slide-down */
 .modal-top .modal-dialog {
     margin: 80px auto 1.75rem auto;
 }
@@ -171,7 +158,6 @@
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* modal actions alignment */
 .modal-below-navbar .modal-footer {
     display: flex !important;
     flex-direction: row !important;
@@ -197,7 +183,6 @@
     }
 }
 
-/* action buttons inline */
 .btn-actions { 
     display: inline-flex; 
     gap: .5rem; 
@@ -207,7 +192,6 @@
     .btn-actions { gap: .4rem; }
 }
 
-/* flash messages */
 .flash-container {
     position: fixed;
     top: calc(var(--navbar-height, 70px) + 12px);
@@ -285,7 +269,6 @@
     }
 }
 
-/* align search button inline with filters (koran page filter row) */
 .content-wrapper .card-body form .form-row > .col-md-1 .btn {
     white-space: nowrap !important;
     height: 100% !important;
@@ -301,7 +284,6 @@
     }
 }
 
-/* force center alignment for action column - desktop only */
 @media (min-width: 576px) {
     .table th.text-right,
     .table td[data-label="Aksi"],
@@ -320,7 +302,6 @@
     }
 }
 
-/* mobile view - keep buttons left aligned but fix stacked table */
 @media (max-width: 575.98px) {
     .table-stacked td[data-label="Aksi"] {
         justify-content: space-between !important;
@@ -331,38 +312,33 @@
     }
 }
 
-/* primary brand overrides without touching vendor template */
 :root {
     --brand-primary: #001CEB;
 }
 
-/* utilities */
 .bg-primary { background-color: var(--brand-primary) !important; }
 .text-primary { color: var(--brand-primary) !important; }
 .border-primary { border-color: var(--brand-primary) !important; }
 .badge-primary { background-color: var(--brand-primary) !important; }
 
-/* buttons */
 .btn-primary {
     background-color: var(--brand-primary) !important;
     border-color: var(--brand-primary) !important;
     color: #fff !important;
 }
 
-/* status badges */
 .badge-status { display: inline-block; padding: .35rem .55rem; border-radius: 999px; font-weight: 600; font-size: .78rem; letter-spacing: .2px; }
 .badge-status-active { background: rgba(59,130,246,.15); color: #1e40af; border: 1px solid rgba(59,130,246,.25); }
 .badge-status-nonactive { background: rgba(239,68,68,.12); color: #7f1d1d; border: 1px solid rgba(239,68,68,.25); }
 .badge-status-process { background: rgba(250,204,21,.2); color: #854d0e; border: 1px solid rgba(250,204,21,.35); }
 
-/* responsive button actions */
 @media (max-width: 575.98px) {
     .btn-actions {
         flex-direction: row;
         gap: 0.25rem;
         justify-content: flex-end;
     }
-    
+
     .btn-actions .btn {
         flex: 1;
         font-size: 0.8rem;
@@ -371,7 +347,6 @@
     }
 }
 
-/* empty state center on mobile */
 @media (max-width: 575.98px) {
     .empty-state {
         text-align: center !important;
@@ -379,7 +354,6 @@
     }
 }
 
-/* fix empty state alignment inside stacked table on mobile */
 @media (max-width: 575.98px) {
     .table-stacked .empty-state {
         display: block !important;
@@ -393,7 +367,6 @@
     }
 }
 
-/* password toggle styles */
 .password-input-wrapper {
     position: relative;
     display: flex;
@@ -447,7 +420,6 @@
     color: #fff !important;
 }
 
-/* nav pills/tabs */
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     background-color: var(--brand-primary) !important;
@@ -457,7 +429,6 @@
     border-color: var(--brand-primary) !important;
 }
 
-/* pagination theme consistency */
 .pagination .page-link {
     background-color: #ffffff !important;
     border-color: #e5e7eb !important;
@@ -473,7 +444,6 @@
     box-shadow: none !important;
 }
 
-/* stronger specificity to ensure hover wins */
 .pagination .page-item:not(.disabled) > .page-link:hover,
 .pagination .page-item:not(.disabled) > .page-link:focus,
 .pagination .page-item:not(.disabled):hover > .page-link,
@@ -499,7 +469,6 @@
     border-color: var(--brand-primary) !important;
 }
 
-/* prev/next specific hover states */
 .pagination .page-item:not(.disabled) .page-link[aria-label="Sebelumnya"]:hover,
 .pagination .page-item:not(.disabled) .page-link[aria-label="Sebelumnya"]:focus,
 .pagination .page-item:not(.disabled) .page-link[aria-label="Berikutnya"]:hover,
@@ -509,7 +478,6 @@
     color: #ffffff !important;
 }
 
-/* fallback for first/last item if aria-label not present */
 .pagination .page-item:first-child:not(.disabled) .page-link:hover,
 .pagination .page-item:first-child:not(.disabled) .page-link:focus,
 .pagination .page-item:last-child:not(.disabled) .page-link:hover,
@@ -519,7 +487,6 @@
     color: #ffffff !important;
 }
 
-/* ensure hover works when cursor is on <li> container */
 .pagination .page-item:not(.disabled):hover .page-link[aria-label="Sebelumnya"],
 .pagination .page-item:not(.disabled):hover .page-link[aria-label="Berikutnya"],
 .pagination .page-item:first-child:not(.disabled):hover .page-link,
@@ -531,7 +498,7 @@
 
 .pagination .page-link { cursor: pointer; }
 .pagination .page-item.disabled .page-link { cursor: default; }
-/* states & variants */
+
 .btn:hover,
 .btn:focus {
     filter: brightness(0.98);
@@ -550,7 +517,6 @@
     color: var(--brand-primary) !important;
 }
 
-/* form controls */
 input.form-control,
 select.form-control,
 textarea.form-control {
@@ -563,24 +529,20 @@ textarea.form-control {
     border-bottom-left-radius: 0 !important;
 }
 
-/* cards & pagination */
 .card-body { padding-top: 1.25rem; }
 .pagination .page-link { color: var(--brand-primary) !important; }
 
-/* skydash sidebar hover title in icon-only mode */
 .sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link .menu-title,
 .sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link:hover .menu-title {
     background: var(--sidebar-primary) !important;
     color: var(--sidebar-text) !important;
 }
 
-/* remove any leftover purple on small indicator/pseudo elements in sidebar minimized */
 .sidebar .nav .nav-item .nav-link .menu-title:after,
 .sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link .menu-title:after {
     background: var(--sidebar-primary) !important;
 }
 
-/* ensure hover/active background stays consistent even when collapsed */
 .sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link,
 .sidebar .nav:not(.sub-menu) > .nav-item.active > .nav-link,
 .sidebar .nav > .nav-item > .nav-link[aria-expanded="true"] {
@@ -588,9 +550,6 @@ textarea.form-control {
     color: var(--sidebar-text) !important;
 }
 
-/* =====================
-   Dashboard Statistics Cards
-   ===================== */
 .stat-card {
     border: none;
     border-radius: 12px;
@@ -729,7 +688,7 @@ textarea.form-control {
     .stat-number {
         font-size: 1.5rem;
     }
-    
+
     .stat-label {
         font-size: 0.8rem;
     }
@@ -758,7 +717,7 @@ textarea.form-control {
     .stat-card .card-body {
         padding: 1rem;
     }
-    
+
     .stat-number {
         font-size: 1.25rem;
     }
@@ -785,16 +744,13 @@ textarea.form-control {
         width: 32px;
         height: 32px;
     }
-    
+
     .table thead th,
     .table tbody td {
         padding: 0.75rem;
     }
 }
 
-/* =====================
-   Final sidebar overrides (cleaned)
-   ===================== */
 :root {
     --sidebar-primary: #001CEB;
     --sidebar-text: #fff;
@@ -889,7 +845,6 @@ html body .sidebar .nav .nav-item.active > .nav-link,
     }
 }
 
-/* final override for pagination hover to enforce theme color */
 nav .pagination li.page-item:not(.disabled) a.page-link:hover,
 nav .pagination li.page-item:not(.disabled) a.page-link:focus,
 nav .pagination li.page-item:not(.disabled):hover > a.page-link,
@@ -899,7 +854,6 @@ nav .pagination li.page-item:not(.disabled):focus-within > a.page-link {
     color: #ffffff !important;
 }
 
-/* detail page responsive layout */
 .detail-header {
     display: flex;
     align-items: flex-start;
@@ -999,17 +953,17 @@ nav .pagination li.page-item:not(.disabled):focus-within > a.page-link {
         align-items: flex-start;
         gap: 0.25rem;
     }
-    
+
     .info-label {
         min-width: auto;
         font-size: 0.875rem;
     }
-    
+
     .info-value {
         text-align: left;
         font-size: 0.9rem;
     }
-    
+
     .btn-actions-mobile .btn {
         flex: none;
         min-width: 70px;
@@ -1245,3 +1199,4 @@ nav .pagination li.page-item:not(.disabled):focus-within > a.page-link {
         font-size: 1rem;
     }
 }
+

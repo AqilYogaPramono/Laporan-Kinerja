@@ -1,4 +1,3 @@
-/* Flash messages (auth only) */
 .flash-container-auth {
     position: fixed;
     top: calc(18px + env(safe-area-inset-top, 0px));
@@ -37,7 +36,6 @@
 @keyframes flash-in-down { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes flash-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-8px); opacity: 0; } }
 
-/* Auth form styling */
 .auth-form-light {
     border-radius: 20px;
     box-shadow: 0 22px 44px rgba(30, 64, 175, 0.12), 0 8px 18px rgba(7, 16, 41, 0.08);
@@ -212,7 +210,6 @@
     width: 100%;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
     .flash { min-width: auto; width: auto; margin: 0 12px; padding: 10px 14px; font-size: 0.9rem; border-radius: 10px; box-sizing: border-box; }
     .flash-container-auth { left: 0; right: 0; transform: none; max-width: none; width: 100%; padding: 0; gap: 8px; }
