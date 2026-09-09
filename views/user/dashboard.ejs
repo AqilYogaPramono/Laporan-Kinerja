@@ -1,25 +1,25 @@
-<%- include('../partials/headers/__header-dashboard.ejs', { title: 'Dashboard Admin' }) %>
-<%- include('../partials/navs/__nav-Admin.ejs') %>
+<%- include('../partials/headers/__header-dashboard.ejs', { title: 'Dashboard User' }) %>
+<%- include('../partials/navs/__nav-user.ejs') %>
 <%- include('../partials/messages/__messages-dashboard.ejs') %>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title mb-4">
-                Dashboard Admin
+                Dashboard User
             </h3>
         </div>
         <div class="row">
             <div class="col-12 col-sm-6 col-lg-6 grid-margin stretch-card">
-                <div class="stat-card card w-100 stat-card-proses">
+                <div class="stat-card card w-100 stat-card-aktif">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="flex-grow-1">
                                 <div class="stat-label">
-                                    User Dalam Proses
+                                    Laporan Kinerja Tim
                                 </div>
-                                <div class="stat-number" data-count="<%= countUserProses %>">
-                                    <%= countUserProses %>
+                                <div class="stat-number" data-count="<%= countLaporanKinerjaInOneTeamById %>">
+                                    <%= countLaporanKinerjaInOneTeamById %>
                                 </div>
                             </div>
                         </div>
@@ -33,26 +33,10 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="flex-grow-1">
                                 <div class="stat-label">
-                                    User Aktif
+                                    Dokumen Kinerja
                                 </div>
-                                <div class="stat-number" data-count="<%= countUserAktif %>">
-                                    <%= countUserAktif %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-6 grid-margin stretch-card">
-                <div class="stat-card card w-100 stat-card-tim">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="flex-grow-1">
-                                <div class="stat-label">
-                                    Jumlah Tim
-                                </div>
-                                <div class="stat-number" data-count="<%= countTim %>">
-                                    <%= countTim %>
+                                <div class="stat-number" data-count="<%= countDokumenKinerjaById %>">
+                                    <%= countDokumenKinerjaById %>
                                 </div>
                             </div>
                         </div>

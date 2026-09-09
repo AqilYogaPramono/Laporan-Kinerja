@@ -1,9 +1,8 @@
 const express = require('express')
 
 const modelAdmin = require('../../models/Admin')
-const modelManajer = require('../../models/Manajer')
+const modelUser = require('../../models/User')
 const modelTim = require('../../models/Tim')
-const modelLaporanKinerja = require('../../models/LaporanKinerja')
 const {authAdmin} = require('../../middleware/auth')
 
 const router = express.Router()
@@ -12,17 +11,19 @@ router.get('/', authAdmin, async (req, res) => {
     try {
         const admin = await modelAdmin.getNama(req.session.userId)
 
-        const [manajerProses] = await modelManajer.countManajerProses()
-        const [manajerAktif] = await modelManajer.countManajerAktif()
-        const [tim] = await modelTim.countTim()
-        const [laporanKinerja] = await modelLaporanKinerja.countLaporanKinerja()
+        const userProsesData = await modelUser.countUserProses()
+        const userAktifData = await modelUser.countUserAktif()
+        const timData = await modelTim.countTim()
+
+        const countUserProses = userProsesData ? userProsesData.count_user_proses : 0
+        const countUserAktif = userAktifData ? userAktifData.count_user_aktif : 0
+        const countTim = Array.isArray(timData) ? (timData[0] ? timData[0].count_tim : 0) : (timData ? timData.count_tim : 0)
 
         res.render('admin/dashboard', { 
             admin,
-            countManajerProses: (manajerProses && manajerProses.count_manajer_proses) || 0,
-            countManajerAktif: (manajerAktif && manajerAktif.count_manajer_aktif) || 0,
-            countTim: (tim && (tim.count_tim ?? tim.countTim)) || 0,
-            countLaporanKinerja: (laporanKinerja && laporanKinerja.count_laporan_kinerja) || 0
+            countUserProses,
+            countUserAktif,
+            countTim
         })
     } catch (err) {
         console.error(err)

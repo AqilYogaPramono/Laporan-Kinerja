@@ -1,28 +1,19 @@
 const connection = require('../config/db')
 
 class LaporanKinerja {
-    static async countLaporanKinerja() {
+    static async countLaporanKinerjaInOneTeamByUserId(id) {
         try {
-            const [rows] = await connection.query(`select count(id) as count_laporan_kinerja from laporan_kinerja`)
-            return rows
+            const [rows] = await connection.query(`SELECT COUNT(lk.id) AS count_laporan_kinerja FROM laporan_kinerja lk JOIN users u ON lk.id_user = u.id WHERE u.id_tim = (SELECT id_tim FROM users WHERE id = ?)`, [id])
+            return rows[0]
         } catch (err) {
             throw err
         }
     }
 
-    static async countLaporanKinerjaInOneTeamByIdManajer(id_manajer) {
+    static async countDokumenKinerjaByUserId(id) {
         try {
-            const [rows] = await connection.query(`select count(id) as count_laporan_kinerja from laporan_kinerja where id_tim = ( select id_tim from manajer where id = ? )`, [id_manajer])
-            return rows
-        } catch (err) {
-            throw err
-        }
-    }
-
-    static async countLaporanKinerjaInOneTeamById(id) {
-        try {
-            const [rows] = await connection.query(`SELECT COUNT(lk.id) AS count_laporan_kinerja FROM laporan_kinerja lk JOIN karyawan k ON lk.id_karyawan = k.id WHERE k.id_tim = ( SELECT id_tim FROM karyawan WHERE id = ?)`, [id])
-            return rows
+            const [rows] = await connection.query(`SELECT COUNT(dk.id) AS count_dokumen_kinerja FROM dokumen_kinerja dk WHERE dk.id_user = ?`, [id])
+            return rows[0]
         } catch (err) {
             throw err
         }

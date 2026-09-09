@@ -16,7 +16,7 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(255) NOT NULL,
     nomor_pegawai VARCHAR(255) UNIQUE NOT NULL,
-    jabatan ENUM('Ketua', 'Staf') NOT NULL,
+    jabatan ENUM('Ketua', 'Staf') DEFAULT 'Staf',
     kata_sandi VARCHAR(255) NOT NULL,
     status ENUM('Aktif', 'Non-Aktif', 'Proses') DEFAULT 'Proses',
     waktu_dibuat DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

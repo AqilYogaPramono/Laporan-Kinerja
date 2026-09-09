@@ -6,14 +6,14 @@ const bcrypt = require('bcryptjs')
 
 const modelAdmin = require('../models/Admin')
 const modelManajer = require('../models/Manajer')
-const modelKarywan = require('../models/Karyawan')
+const modelUser = require('../models/User')
 const modelTim = require('../models/Tim')
 
 const router = express.Router()
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../public/images/karyawan'))
+        cb(null, path.join(__dirname, '../public/images/karyawan'))
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({storage})
+const upload = multer({ storage })
 
 const deleteUploadedFile = (file) => {
     if (file && file.filename) {
@@ -300,8 +300,8 @@ router.get('/', async (req, res) => {
 
 router.post('/log', async (req, res) => {
     try {
-        const {nomor_pegawai, kata_sandi} = req.body
-        const data = {nomor_pegawai, kata_sandi}
+        const { nomor_pegawai, kata_sandi } = req.body
+        const data = { nomor_pegawai, kata_sandi }
 
         if (!nomor_pegawai) {
             req.flash('error', 'Nomor Pegawai wajib di isi')
@@ -318,18 +318,13 @@ router.post('/log', async (req, res) => {
         let user = null
         let role = null
 
-        user = await modelKarywan.login(data)
+        user = await modelUser.login(data)
         if (user) {
-            role = "Karyawan"
+            role = user.jabatan
         } else {
-            user = await modelManajer.login(data)
+            user = await modelAdmin.login(data)
             if (user) {
-                role = "Manajer"
-            } else {
-                user = await modelAdmin.login(data)
-                if (user) {
-                    role = "Admin"
-                }
+                role = "Admin"
             }
         }
 
@@ -339,13 +334,7 @@ router.post('/log', async (req, res) => {
             return res.redirect('/')
         }
 
-        if (user.status !== 'Aktif' && role == "Karyawan") {
-            req.flash('error', 'Silahkan hubungi Manajer untuk aktifasi akun anda.')
-            req.flash('data', data)
-            return res.redirect('/')
-        }
-
-        if (user.status !== 'Aktif' && role == 'Manajer') {
+        if (user.status !== 'Aktif' && role !== "Admin") {
             req.flash('error', 'Silahkan hubungi Admin untuk aktifasi akun anda.')
             req.flash('data', data)
             return res.redirect('/')
@@ -360,9 +349,8 @@ router.post('/log', async (req, res) => {
         req.session.userId = user.id
         req.session.role = role
 
-        if(req.session.role === "Karyawan") return res.redirect('/karyawan/dashboard')
-        if(req.session.role === "Manajer") return res.redirect('/manajer/dashboard')
-        if(req.session.role === "Admin") return res.redirect('/admin/dashboard')
+        if (req.session.role === "Ketua" || req.session.role === "Staf") return res.redirect('/user/dashboard')
+        if (req.session.role === "Admin") return res.redirect('/admin/dashboard')
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
@@ -370,7 +358,7 @@ router.post('/log', async (req, res) => {
     }
 })
 
-router.get('/logout', async(req, res) => {
+router.get('/logout', async (req, res) => {
     try {
         req.session.destroy()
         res.redirect('/')

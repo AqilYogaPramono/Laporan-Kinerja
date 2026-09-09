@@ -63,3 +63,19 @@ CREATE TABLE dokumen_kinerja (
     FOREIGN KEY (id_karyawan) REFERENCES karyawan(id) ON DELETE SET NULL,
     FOREIGN KEY (id_laporan_kinerja) REFERENCES laporan_kinerja(id) ON DELETE CASCADE
 );
+
+
+laporan kinerja marketing
+admin
+katua
+staf
+
+admin {
+mmabuat tim
+pengguna (verivikasi, update ketua, update tim)
+}
+
+user {
+data anggota
+laporan kinerja (sesuai tim, membuat judul (ketua), uploud file)
+}

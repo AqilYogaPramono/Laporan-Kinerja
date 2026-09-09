@@ -39,24 +39,6 @@ class Karyawan {
         }
     }
 
-    static async countKaryawanProses() {
-        try {
-            const [rows] = await connection.query(`select count(id) as count_karyawan_proses from karyawan where status = 'Proses'`)
-            return rows
-        } catch (err) {
-            throw err
-        }
-    }
-
-    static async countKaryawanValid() {
-        try {
-            const [rows] = await connection.query(`select count(id) as count_karyawan_valid from karyawan where status = 'Aktif'`)
-            return rows
-        } catch (err) {
-            throw err
-        }
-    }
-
     static async getKaryawanBySameTeam(id) {
         try {
             const [rows] = await connection.query(`SELECT k.id, k.foto_profil, k.nama, k.nomor_pegawai, k.nomor_whatsapp, k.status, k.waktu_dibuat, k.waktu_diverifikasi FROM karyawan k JOIN tim t ON k.id_tim = t.id JOIN manajer m ON m.id_tim = t.id WHERE m.id = ? ORDER BY waktu_dibuat DESC`, [id])
@@ -88,15 +70,6 @@ class Karyawan {
         try {
             const [result] = await connection.query('DELETE FROM karyawan WHERE id = ?',[id])
             return result
-        } catch (err) {
-            throw err
-        }
-    }
-
-    static async getNama(id) {
-        try {
-            const [rows] = await connection.query(`select nama from karyawan where id = ?`, [id])
-            return rows[0]
         } catch (err) {
             throw err
         }
