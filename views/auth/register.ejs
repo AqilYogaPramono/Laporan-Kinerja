@@ -1,4 +1,4 @@
-<%- include('../partials/headers/__header-auth.ejs', { title: 'Daftar Karyawan' }) %>
+<%- include('../partials/headers/__header-auth.ejs', { title: 'Pendaftaran' }) %>
 
 <%- include('../partials/messages/__messages-auth.ejs') %>
     <div class="container-scroller">
@@ -7,19 +7,8 @@
             <div class="row w-100 mx-0 justify-content-center">
             <div class="col-12 col-md-10 col-lg-6 col-xl-5 mx-auto">
                 <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                <h4>Pendaftaran Karyawan</h4>
-                <form class="pt-3" action="/reg-karyawan" method="POST" enctype="multipart/form-data">
-                    <div class="form-group text-center mb-3">
-                        <div class="profile-upload-wrapper">
-                            <div class="profile-preview-container">
-                                <img id="profilePreview" src="<%= (typeof messages != 'undefined' && messages.error && messages.error.length > 0) ? '/images/assets/default-profile-picture.jpg' : ((typeof data != 'undefined' && data.foto_profil && data.foto_profil !== 'null') ? '/images/marketers/' + data.foto_profil : '/images/assets/default-profile-picture.jpg') %>" alt="Preview Foto Profil" class="profile-preview-img" data-default="/images/assets/default-profile-picture.jpg">
-                                <label for="fotoProfilInput" class="profile-upload-label">
-                                    <i class="bi bi-camera-fill"></i>
-                                    <input type="file" class="d-none" id="fotoProfilInput" name="foto_profil" accept="image/*">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                <h4>Pendaftaran</h4>
+                <form class="pt-3" action="/daftar" method="POST">
                     <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-person"></i></span>
@@ -30,12 +19,6 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
                         <input type="text" class="form-control form-control-lg" id="nomorPegawaiInput" placeholder="Nomor Pegawai" name="nomor_pegawai" value="<%= (typeof data != 'undefined' && data.nomor_pegawai) || '' %>">
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-whatsapp"></i></span>
-                        <input type="text" class="form-control form-control-lg" id="nomorWhatsAppInput" placeholder="Nomor WhatsApp" name="nomor_whatsapp" value="<%= (typeof data != 'undefined' && data.nomor_whatsapp) || '' %>">
                     </div>
                     </div>
                     <div class="form-group">

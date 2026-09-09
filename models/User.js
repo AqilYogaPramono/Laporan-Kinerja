@@ -37,6 +37,30 @@ class User {
             throw err
         }
     }
+
+    static async checkNomorPegawai(data) {
+        try {
+            const [rows] = await connection.query(`SELECT nomor_pegawai FROM users WHERE nomor_pegawai = ?`, [data.nomor_pegawai])
+            return rows.length > 0
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async register(data) {
+        try {
+            const hashedPassword = await bcrypt.hash(data.kata_sandi, 10)
+            const [result] = await connection.query(`INSERT INTO users SET ?`, { 
+                nama: data.nama, 
+                nomor_pegawai: data.nomor_pegawai, 
+                id_tim: data.id_tim, 
+                kata_sandi: hashedPassword 
+            })
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = User
