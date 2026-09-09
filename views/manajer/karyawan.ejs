@@ -6,9 +6,6 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title mb-4">
-                <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                    <i class="mdi mdi-account"></i>
-                </span>
                 Data Karyawan
             </h3>
         </div>
@@ -88,7 +85,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="karyawan-detail-actions">
-                                                        <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modalEdit<%= data[i].id %>">Edit Status</button>
+                                                        <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#modalEdit<%= data[i].id %>">Edit Status</button>
                                                         <% if (data[i].status === 'Non-Aktif') { %>
                                                             <button type="button" class="btn btn-sm btn-outline-danger btn-delete" data-url="/manajer/karyawan/delete/<%= data[i].id %>">Hapus</button>
                                                         <% } %>

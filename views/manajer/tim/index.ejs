@@ -6,9 +6,6 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title mb-4">
-                <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                    <i class="mdi mdi-account-group"></i>
-                </span>
                 Data Tim
             </h3>
         </div>
@@ -37,7 +34,7 @@
                               <td data-label="Nama Tim"><%= item.nama_tim %></td>
                               <td class="text-right" data-label="Aksi">
                                 <div class="btn-actions">
-                                  <a href="/manajer/tim/edit/<%= item.id %>" class="btn btn-sm btn-outline-info">Edit</a>
+                                  <a href="/manajer/tim/edit/<%= item.id %>" class="btn btn-sm btn-outline-primary">Edit</a>
                                   <button type="button" class="btn btn-sm btn-outline-danger btn-delete" data-url="/manajer/tim/delete/<%= item.id %>">Hapus</button>
                                 </div>
                               </td>

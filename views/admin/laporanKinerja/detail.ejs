@@ -6,9 +6,6 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title mb-4">
-                <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                    <i class="mdi mdi-clipboard-text"></i>
-                </span>
                 Detail Laporan Kinerja
             </h3>
         </div>
@@ -58,7 +55,7 @@
                                   <% if (item.tipe_file === 'Dokumen') { %>
                                     <a href="/documents/laporanDokumen/<%= item.file %>" download class="btn btn-sm btn-outline-primary">Download</a>
                                   <% } else { %>
-                                    <a href="<%= item.file %>" target="_blank" class="btn btn-sm btn-outline-info">Buka Link</a>
+                                    <a href="<%= item.file %>" target="_blank" class="btn btn-sm btn-outline-primary">Buka Link</a>
                                   <% } %>
                                 </div>
                               </td>

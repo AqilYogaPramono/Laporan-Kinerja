@@ -9,7 +9,7 @@
 }
 
 :root {
-    --sidebar-primary: #001CEB;
+    --sidebar-primary: #198754;
     --sidebar-text: #fff;
     --sidebar-width: 260px;
     --sidebar-width-collapsed: 70px;
@@ -313,7 +313,7 @@
 }
 
 :root {
-    --brand-primary: #001CEB;
+    --brand-primary: #198754;
 }
 
 .bg-primary { background-color: var(--brand-primary) !important; }
@@ -328,7 +328,7 @@
 }
 
 .badge-status { display: inline-block; padding: .35rem .55rem; border-radius: 999px; font-weight: 600; font-size: .78rem; letter-spacing: .2px; }
-.badge-status-active { background: rgba(59,130,246,.15); color: #1e40af; border: 1px solid rgba(59,130,246,.25); }
+.badge-status-active { background: rgba(25,135,84,.15); color: #146c43; border: 1px solid rgba(25,135,84,.25); }
 .badge-status-nonactive { background: rgba(239,68,68,.12); color: #7f1d1d; border: 1px solid rgba(239,68,68,.25); }
 .badge-status-process { background: rgba(250,204,21,.2); color: #854d0e; border: 1px solid rgba(250,204,21,.35); }
 
@@ -394,8 +394,8 @@
     transition: color 0.2s ease;
 }
 
-.password-toggle-btn:hover { color: var(--brand-primary, #001CEB); }
-.password-toggle-btn:focus { outline: none; color: var(--brand-primary, #001CEB); }
+.password-toggle-btn:hover { color: var(--brand-primary, #198754); }
+.password-toggle-btn:focus { outline: none; color: var(--brand-primary, #198754); }
 .password-toggle-btn i { font-size: 18px; line-height: 1; }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -555,18 +555,18 @@ textarea.form-control {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
-    background: #001CEB;
+    background: #ffffff;
 }
 
 .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(15, 142, 200, 0.3);
+    box-shadow: 0 8px 30px rgba(25, 135, 84, 0.3);
 }
 
 .stat-label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
+    color: #495057;
     margin-bottom: 0.5rem;
     line-height: 1.2;
 }
@@ -574,7 +574,7 @@ textarea.form-control {
 .stat-number {
     font-size: 2rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #2c3e50;
     line-height: 1;
     margin-bottom: 0;
 }
@@ -618,11 +618,11 @@ textarea.form-control {
 }
 
 .stat-card-proses {
-    background: linear-gradient(135deg, #001CEB 0%, #0a58ca 100%);
+    background: #ffffff;
 }
 
 .stat-card-aktif {
-    background: linear-gradient(135deg, #001CEB 0%, #0a58ca 100%);
+    background: #ffffff;
 }
 
 .card {
@@ -654,7 +654,7 @@ textarea.form-control {
     background-color: var(--brand-primary) !important;
     border-color: var(--brand-primary) !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(15, 142, 200, 0.3);
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
 }
 
 .btn-primary i {
@@ -752,7 +752,7 @@ textarea.form-control {
 }
 
 :root {
-    --sidebar-primary: #001CEB;
+    --sidebar-primary: #198754;
     --sidebar-text: #fff;
     --sidebar-width: 260px;
     --sidebar-width-collapsed: 70px;
