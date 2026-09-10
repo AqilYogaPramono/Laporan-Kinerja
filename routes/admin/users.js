@@ -122,4 +122,30 @@ router.post('/tim/:id', authAdmin, async (req, res) => {
     }
 })
 
+router.post('/delete/:id', authAdmin, async (req, res) => {
+    try {
+        const { id } = req.params
+        const user = await modelUser.getById(id)
+
+        if (!user) {
+            req.flash('error', 'User tidak ditemukan')
+            return res.redirect('/admin/users')
+        }
+
+        if (user.status !== 'Non-Aktif') {
+            req.flash('error', 'Hanya akun berstatus Non-Aktif yang dapat dihapus')
+            return res.redirect('/admin/users/' + id)
+        }
+
+        await modelUser.deleteUser(id)
+
+        req.flash('success', 'Akun Berhasil Dihapus')
+        res.redirect('/admin/users')
+    } catch (err) {
+        console.error(err)
+        req.flash('error', 'Internal Server Error')
+        res.redirect('/admin/users')
+    }
+})
+
 module.exports = router

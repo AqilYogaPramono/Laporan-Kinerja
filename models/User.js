@@ -118,6 +118,15 @@ class User {
             throw err
         }
     }
+
+    static async deleteUser(id) {
+        try {
+            const [result] = await connection.query(`DELETE FROM users WHERE id = ?`, [id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = User

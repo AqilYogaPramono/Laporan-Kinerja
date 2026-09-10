@@ -12,12 +12,19 @@
                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalVerifikasi">
                     Verifikasi
                 </button>
-                <button type="button" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modalUpdateJabatan">
-                    <%= data.jabatan === 'Ketua' ? 'Ubah Menjadi Staf' : 'Ubah Menjadi Ketua' %>
-                </button>
-                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalUpdateTim">
-                    Update Tim
-                </button>
+                <% if (data.status === 'Aktif') { %>
+                    <button type="button" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modalUpdateJabatan">
+                        <%= data.jabatan === 'Ketua' ? 'Ubah Menjadi Staf' : 'Ubah Menjadi Ketua' %>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalUpdateTim">
+                        Update Tim
+                    </button>
+                <% } %>
+                <% if (data.status === 'Non-Aktif') { %>
+                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalHapusAkun">
+                        Hapus Akun
+                    </button>
+                <% } %>
                 <a href="/admin/users" class="btn btn-sm btn-light">
                     Kembali
                 </a>
@@ -108,63 +115,89 @@
     </div>
 </div>
 
-<div class="modal fade modal-below-navbar" id="modalUpdateJabatan" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <%= data.jabatan === 'Ketua' ? 'Ubah Menjadi Staf' : 'Ubah Menjadi Ketua' %>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="/admin/users/jabatan/<%= data.id %>" method="POST">
-                <input type="hidden" name="jabatan" value="<%= data.jabatan === 'Ketua' ? 'Staf' : 'Ketua' %>">
-                <div class="modal-body">
-                    <p>Apakah Anda yakin ingin mengubah jabatan <strong><%= data.nama %></strong> menjadi <strong><%= data.jabatan === 'Ketua' ? 'Staf' : 'Ketua' %></strong>?</p>
+<% if (data.status === 'Aktif') { %>
+    <div class="modal fade modal-below-navbar" id="modalUpdateJabatan" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <%= data.jabatan === 'Ketua' ? 'Ubah Menjadi Staf' : 'Ubah Menjadi Ketua' %>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning text-white">Ya, Ubah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade modal-below-navbar" id="modalUpdateTim" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Update Tim</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="/admin/users/tim/<%= data.id %>" method="POST">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="id_tim">Pilih Tim</label>
-                        <select class="form-control" id="id_tim" name="id_tim" required>
-                            <option value="" disabled <%= !data.id_tim ? 'selected' : '' %>>Pilih Tim...</option>
-                            <% if (Array.isArray(tim) && tim.length) { %>
-                                <% for (let i = 0; i < tim.length; i++) { %>
-                                    <option value="<%= tim[i].id %>" <%= tim[i].id === data.id_tim ? 'selected' : '' %>>
-                                        <%= tim[i].nama_tim %>
-                                    </option>
-                                <% } %>
-                            <% } %>
-                        </select>
+                <form action="/admin/users/jabatan/<%= data.id %>" method="POST">
+                    <input type="hidden" name="jabatan" value="<%= data.jabatan === 'Ketua' ? 'Staf' : 'Ketua' %>">
+                    <div class="modal-body">
+                        <p>Apakah Anda yakin ingin mengubah jabatan <strong><%= data.nama %></strong> menjadi <strong><%= data.jabatan === 'Ketua' ? 'Staf' : 'Ketua' %></strong>?</p>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-info">Simpan</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-warning text-white">Ya, Ubah</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="modal fade modal-below-navbar" id="modalUpdateTim" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Tim</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/admin/users/tim/<%= data.id %>" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="id_tim">Pilih Tim</label>
+                            <select class="form-control" id="id_tim" name="id_tim" required>
+                                <option value="" disabled <%= !data.id_tim ? 'selected' : '' %>>Pilih Tim...</option>
+                                <% if (Array.isArray(tim) && tim.length) { %>
+                                    <% for (let i = 0; i < tim.length; i++) { %>
+                                        <option value="<%= tim[i].id %>" <%= tim[i].id === data.id_tim ? 'selected' : '' %>>
+                                            <%= tim[i].nama_tim %>
+                                        </option>
+                                    <% } %>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-info">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<% if (data.status === 'Non-Aktif') { %>
+    <div class="modal fade modal-below-navbar" id="modalHapusAkun" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi Hapus Akun</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/admin/users/delete/<%= data.id %>" method="POST">
+                    <div class="modal-body">
+                        <p>Apakah Anda yakin ingin menghapus akun <strong><%= data.nama %></strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<% } %>
 
 <%- include('../../partials/scripts/__script-dashboard.ejs') %>
