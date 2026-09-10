@@ -109,6 +109,15 @@ class User {
             throw err
         }
     }
+
+    static async updateTim(id, id_tim) {
+        try {
+            const [result] = await connection.query(`UPDATE users SET id_tim = ? WHERE id = ?`, [id_tim, id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = User

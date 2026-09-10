@@ -2,6 +2,7 @@ const express = require('express')
 
 const modelAdmin = require('../../models/Admin')
 const modelUser = require('../../models/User')
+const modelTim = require('../../models/Tim')
 const { authAdmin } = require('../../middleware/auth')
 
 const router = express.Router()
@@ -38,13 +39,14 @@ router.get('/:id', authAdmin, async (req, res) => {
         const { id } = req.params
         const admin = await modelAdmin.getNama(req.session.userId)
         const data = await modelUser.getById(id)
+        const tim = await modelTim.getAll()
 
         if (!data) {
             req.flash('error', 'User tidak ditemukan')
             return res.redirect('/admin/users')
         }
 
-        res.render('admin/users/detail', { data, admin })
+        res.render('admin/users/detail', { data, admin, tim })
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
@@ -96,6 +98,27 @@ router.post('/jabatan/:id', authAdmin, async (req, res) => {
         console.error(err)
         req.flash('error', 'Internal Server Error')
         res.redirect('/admin/users')
+    }
+})
+
+router.post('/tim/:id', authAdmin, async (req, res) => {
+    try {
+        const { id } = req.params
+        const { id_tim } = req.body
+
+        if (!id_tim) {
+            req.flash('error', 'Tim wajib dipilih')
+            return res.redirect('/admin/users/' + id)
+        }
+
+        await modelUser.updateTim(id, id_tim)
+
+        req.flash('success', 'Tim Berhasil Diubah')
+        res.redirect('/admin/users/' + id)
+    } catch (err) {
+        console.error(err)
+        req.flash('error', 'Internal Server Error')
+        res.redirect('/admin/users/' + req.params.id)
     }
 })
 

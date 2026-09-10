@@ -15,7 +15,7 @@
                 <button type="button" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modalUpdateJabatan">
                     <%= data.jabatan === 'Ketua' ? 'Ubah Menjadi Staf' : 'Ubah Menjadi Ketua' %>
                 </button>
-                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalUpdateTimDummy">
+                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalUpdateTim">
                     Update Tim
                 </button>
                 <a href="/admin/users" class="btn btn-sm btn-light">
@@ -133,27 +133,36 @@
     </div>
 </div>
 
-<div class="modal fade modal-below-navbar" id="modalUpdateTimDummy" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade modal-below-navbar" id="modalUpdateTim" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Update Tim (Dummy)</h5>
+                <h5 class="modal-title">Update Tim</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Pilih Tim (Dummy)</label>
-                    <select class="form-control" disabled>
-                        <option>Pilih Tim...</option>
-                    </select>
+            <form action="/admin/users/tim/<%= data.id %>" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="id_tim">Pilih Tim</label>
+                        <select class="form-control" id="id_tim" name="id_tim" required>
+                            <option value="" disabled <%= !data.id_tim ? 'selected' : '' %>>Pilih Tim...</option>
+                            <% if (Array.isArray(tim) && tim.length) { %>
+                                <% for (let i = 0; i < tim.length; i++) { %>
+                                    <option value="<%= tim[i].id %>" <%= tim[i].id === data.id_tim ? 'selected' : '' %>>
+                                        <%= tim[i].nama_tim %>
+                                    </option>
+                                <% } %>
+                            <% } %>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-info" disabled>Simpan (Dummy)</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-info">Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
