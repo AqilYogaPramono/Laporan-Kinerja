@@ -1,27 +1,27 @@
-<%- include('../../partials/headers/__header-dashboard.ejs', { title: 'Edit Tim' }) %>
-<%- include('../../partials/navs/__nav-admin.ejs') %>
+<%- include('../../partials/headers/__header-dashboard.ejs', { title: 'Buat Laporan Kinerja' }) %>
+<%- include('../../partials/navs/__nav-user.ejs') %>
 <%- include('../../partials/messages/__messages-dashboard.ejs') %>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title mb-4">
-                Edit Tim
+                Buat Laporan Kinerja
             </h3>
         </div>
         <div class="row">
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-description">Ubah nama tim</p>
-                  <form action="/admin/tim/update/<%= data.id %>" method="POST" data-loading>
+                  <p class="card-description">Masukkan judul laporan kinerja yang akan dibuat</p>
+                  <form action="/user/laporan-kinerja/buat" method="POST" data-loading>
                     <div class="form-group">
-                      <label for="nama_tim">Nama Tim</label>
-                      <input type="text" class="form-control" id="nama_tim" name="nama_tim" value="<%= data.nama_tim %>" placeholder="Masukkan nama tim" required>
+                      <label for="judul_laporan">Judul Laporan</label>
+                      <input type="text" class="form-control" id="judul_laporan" name="judul_laporan" placeholder="Masukkan judul laporan" value="<%= (typeof data != 'undefined' && data.judul_laporan) || '' %>" required>
                     </div>
                     <div class="d-flex">
                       <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                      <a href="/admin/tim" class="btn btn-light">Kembali</a>
+                      <a href="/user/laporan-kinerja" class="btn btn-light">Kembali</a>
                     </div>
                   </form>
                 </div>

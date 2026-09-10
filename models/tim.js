@@ -64,19 +64,9 @@ class tim {
         }
     }
 
-    static async checkTimUsedKaryawan(id) {
+    static async checkTimUsedUser(id) {
         try {
-            const [rows] = await connection.query(`SELECT id FROM karyawan WHERE id_tim = ?`, [id, id])
-            return rows.length > 0
-        } catch (err) {
-            throw err
-        }
-    }
-
-
-    static async checkTimUsedManajer(id) {
-        try {
-            const [rows] = await connection.query(`SELECT id FROM manajer WHERE id_tim = ?`, [id, id])
+            const [rows] = await connection.query(`SELECT id FROM users WHERE id_tim = ?`, [id])
             return rows.length > 0
         } catch (err) {
             throw err
@@ -86,7 +76,7 @@ class tim {
     static async countTim() {
         try {
             const [rows] = await connection.query(`SELECT count(id) as count_tim FROM tim`)
-            return rows
+            return rows[0]
         } catch (err) {
             throw err
         }

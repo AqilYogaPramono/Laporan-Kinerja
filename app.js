@@ -13,21 +13,14 @@ const auth = require('./routes/auth')
 
 // router admin
 const adminDashboard = require('./routes/admin/dashboard')
-const adminManajer = require('./routes/admin/manajer')
+const adminUsers = require('./routes/admin/users')
 const adminTim = require('./routes/admin/tim')
-const adminLaporanKinerja = require('./routes/admin/laporanKinerja')
 
-// router karyawan
-const karyawanDashboard = require('./routes/karyawan/dashboard')
-const karyawan = require('./routes/karyawan/karyawan')
-const karyawanLaporanKinerja = require('./routes/karyawan/laporanKinerja')
-const karyawanDokumenKinerja = require('./routes/karyawan/dokumenKinerja')
-
-// router manajer
-const manajerDashboard = require('./routes/manajer/dashboard')
-const manajer = require('./routes/manajer/manajer')
-const manajerKaryawan = require('./routes/manajer/karyawan')
-const manajerLaporanKinerja = require('./routes/manajer/laporanKinerja')
+//router users
+const userDashboard = require('./routes/users/dashboard')
+const userLaporanKinerja = require('./routes/users/laporanKinerja')
+const userDokumenKinerja = require('./routes/users/dokumenKinerja')
+const user = require('./routes/users/user')
 
 var app = express()
 
@@ -59,21 +52,14 @@ app.use('/', auth)
 
 // path admin
 app.use('/admin/dashboard', adminDashboard)
-app.use('/admin/manajer', adminManajer)
+app.use('/admin/users', adminUsers)
 app.use('/admin/tim', adminTim)
-app.use('/admin/laporan-kinerja', adminLaporanKinerja)
 
-// path karyawan
-app.use('/karyawan/dashboard', karyawanDashboard)
-app.use('/karyawan', karyawan)
-app.use('/karyawan/laporan-kinerja', karyawanLaporanKinerja)
-app.use('/karyawan/dokumen-kinerja', karyawanDokumenKinerja)
-
-// path manajer
-app.use('/manajer/dashboard', manajerDashboard)
-app.use('/manajer', manajer)
-app.use('/manajer/karyawan', manajerKaryawan)
-app.use('/manajer/laporan-kinerja', manajerLaporanKinerja)
+// path users
+app.use('/user/dashboard', userDashboard)
+app.use('/user/laporan-kinerja', userLaporanKinerja)
+app.use('/user/dokumen-kinerja', userDokumenKinerja)
+app.use('/user', user)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
