@@ -12,8 +12,8 @@
                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalVerifikasi">
                     Verifikasi
                 </button>
-                <button type="button" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modalUpdateKetuaDummy">
-                    Update Menjadi Ketua
+                <button type="button" class="btn btn-sm btn-warning text-white" data-toggle="modal" data-target="#modalUpdateJabatan">
+                    <%= data.jabatan === 'Ketua' ? 'Ubah Menjadi Staf' : 'Ubah Menjadi Ketua' %>
                 </button>
                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalUpdateTimDummy">
                     Update Tim
@@ -108,22 +108,27 @@
     </div>
 </div>
 
-<div class="modal fade modal-below-navbar" id="modalUpdateKetuaDummy" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade modal-below-navbar" id="modalUpdateJabatan" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Update Menjadi Ketua (Dummy)</h5>
+                <h5 class="modal-title">
+                    <%= data.jabatan === 'Ketua' ? 'Ubah Menjadi Staf' : 'Ubah Menjadi Ketua' %>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>Fitur untuk mengubah jabatan user menjadi Ketua Tim (Dummy UI).</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-warning text-white" disabled>Simpan (Dummy)</button>
-            </div>
+            <form action="/admin/users/jabatan/<%= data.id %>" method="POST">
+                <input type="hidden" name="jabatan" value="<%= data.jabatan === 'Ketua' ? 'Staf' : 'Ketua' %>">
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin mengubah jabatan <strong><%= data.nama %></strong> menjadi <strong><%= data.jabatan === 'Ketua' ? 'Staf' : 'Ketua' %></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-warning text-white">Ya, Ubah</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -74,7 +74,28 @@ router.post('/verifikasi/:id', authAdmin, async (req, res) => {
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
-        res.redirect('/admin/users/' + req.params.id)
+        res.redirect('/admin/users/')
+    }
+})
+
+router.post('/jabatan/:id', authAdmin, async (req, res) => {
+    try {
+        const { id } = req.params
+        const { jabatan } = req.body
+
+        if (jabatan !== 'Ketua' && jabatan !== 'Staf') {
+            req.flash('error', 'Jabatan tidak valid')
+            return res.redirect('/admin/users/' + id)
+        }
+
+        await modelUser.updateJabatan(id, jabatan)
+
+        req.flash('success', `Jabatan Berhasil Diubah Menjadi ${jabatan}`)
+        res.redirect('/admin/users/' + id)
+    } catch (err) {
+        console.error(err)
+        req.flash('error', 'Internal Server Error')
+        res.redirect('/admin/users')
     }
 })
 
