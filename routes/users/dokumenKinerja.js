@@ -238,4 +238,40 @@ router.post('/buat-link/:id', authUser, async (req, res) => {
     }
 })
 
+router.post('/hapus/:id', authUser, async (req, res) => {
+    try {
+        const {id} = req.params
+
+        const dokumenKinerjaData = await modelDokumenKinerja.getDokumenKinerjaById(id)
+
+        if (!dokumenKinerjaData) {
+            req.flash('error', 'Dokumen kinerja tidak ditemukan')
+            return res.redirect('/user/laporan-kinerja')
+        }
+
+        if (dokumenKinerjaData.id_user !== req.session.userId) {
+            req.flash('error', 'Anda tidak memiliki akses untuk menghapus ini')
+            return res.redirect(`/user/dokumen-kinerja/detail/${dokumenKinerjaData.id_laporan_kinerja}`)
+        }
+
+        if (dokumenKinerjaData.tipe_file === 'Dokumen') {
+            deleteUploadedFile(dokumenKinerjaData.file)
+        }
+
+        await modelDokumenKinerja.delete(id)
+
+        const user = await modelUser.getById(req.session.userId)
+        await modelLaporanKinerja.lastUpdate({
+            terakhir_diedit_oleh: user.nama
+        }, dokumenKinerjaData.id_laporan_kinerja)
+
+        req.flash('success', 'Dokumen kinerja berhasil dihapus')
+        res.redirect(`/user/dokumen-kinerja/detail/${dokumenKinerjaData.id_laporan_kinerja}`)
+    } catch (err) {
+        console.error(err)
+        req.flash('error', 'Internal Server Error')
+        res.redirect('/user/laporan-kinerja')
+    }
+})
+
 module.exports = router
