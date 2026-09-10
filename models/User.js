@@ -80,6 +80,18 @@ class User {
         }
     }
 
+    static async searchByNomorPegawai(keyword) {
+        try {
+            const [rows] = await connection.query(
+                `SELECT u.id, u.nama, u.nomor_pegawai, u.jabatan, u.status, t.nama_tim FROM users u LEFT JOIN tim t ON u.id_tim = t.id WHERE u.nomor_pegawai LIKE ? ORDER BY u.id DESC`,
+                [`%${keyword}%`]
+            )
+            return rows
+        } catch (err) {
+            throw err
+        }
+    }
+
     static async updateStatusAccount(data, id) {
         try {
             const [result] = await connection.query(`UPDATE users SET ? WHERE id = ?`, [data, id])

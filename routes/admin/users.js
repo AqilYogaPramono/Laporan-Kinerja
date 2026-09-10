@@ -11,11 +11,25 @@ router.get('/', authAdmin, async (req, res) => {
         const admin = await modelAdmin.getNama(req.session.userId)
         const data = await modelUser.getUsers()
 
-        res.render('admin/users/users', { data, admin })
+        res.render('admin/users/users', { data, admin, searchKeyword: '' })
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
         res.redirect('/admin/dashboard')
+    }
+})
+
+router.post('/search', authAdmin, async (req, res) => {
+    try {
+        const { nomor_pegawai } = req.body
+        const admin = await modelAdmin.getNama(req.session.userId)
+        const data = await modelUser.searchByNomorPegawai(nomor_pegawai)
+
+        res.render('admin/users/users', { data, admin, searchKeyword: nomor_pegawai })
+    } catch (err) {
+        console.error(err)
+        req.flash('error', 'Internal Server Error')
+        res.redirect('/admin/users')
     }
 })
 

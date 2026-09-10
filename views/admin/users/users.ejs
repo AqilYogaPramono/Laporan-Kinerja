@@ -15,12 +15,20 @@
                     <div class="card-body">
                         <div class="row mb-4 justify-content-end">
                             <div class="col-md-6 col-lg-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Cari Nomor Pegawai..." readonly title="Search bar dummy">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button" disabled>Cari</button>
+                                <form action="/admin/users/search" method="POST">
+                                    <div class="google-search-box">
+                                        <input type="text" class="google-search-input" name="nomor_pegawai" placeholder="Cari Nomor Pegawai..." value="<%= typeof searchKeyword !== 'undefined' ? searchKeyword : '' %>" required>
+                                        <div class="google-search-actions">
+                                            <% if (typeof searchKeyword !== 'undefined' && searchKeyword) { %>
+                                                <a href="/admin/users" class="google-search-clear" title="Hapus Pencarian">&times;</a>
+                                                <span class="google-search-divider"></span>
+                                            <% } %>
+                                            <button class="google-search-btn" type="submit" title="Cari">
+                                                <i class="mdi mdi-magnify"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
 
