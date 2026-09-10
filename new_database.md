@@ -40,7 +40,6 @@ CREATE TABLE laporan_kinerja (
 CREATE TABLE dokumen_kinerja (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_laporan_kinerja INT NOT NULL,
-    tipe_file ENUM('Dokumen', 'Link'),
     nama_file VARCHAR(255) NOT NULL,
     file VARCHAR(255) NOT NULL,
     dibuat_oleh VARCHAR(255) NOT NULL,

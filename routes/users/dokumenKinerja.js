@@ -142,7 +142,6 @@ router.post('/buat-dokumen/:id', authUser, upload.single('file'), async (req, re
 
         const data = {
             id_laporan_kinerja: id,
-            tipe_file: 'Dokumen',
             nama_file,
             file: req.file.filename,
             dibuat_oleh: user.nama,
@@ -165,79 +164,6 @@ router.post('/buat-dokumen/:id', authUser, upload.single('file'), async (req, re
     }
 })
 
-router.get('/buat-link/:id', authUser, async (req, res) => {
-    try {
-        const {id} = req.params
-        const user = await modelUser.getNama(req.session.userId)
-        const laporanKinerjaData = await modelLaporanKinerja.getLaporanKinerjaById(id)
-
-        if (!laporanKinerjaData) {
-            req.flash('error', 'Laporan kinerja tidak ditemukan')
-            return res.redirect('/user/laporan-kinerja')
-        }
-
-        res.render('user/dokumenKinerja/buatLink', { 
-            user,
-            laporanKinerjaData,
-            data: req.flash('data')[0]
-        })
-    } catch (err) {
-        console.error(err)
-        req.flash('error', 'Internal Server Error')
-        res.redirect('/user/laporan-kinerja')
-    }
-})
-
-router.post('/buat-link/:id', authUser, async (req, res) => {
-    try {
-        const {id} = req.params
-        const {nama_file, file} = req.body
-
-        if (!nama_file) {
-            req.flash('error', 'Nama file tidak boleh kosong')
-            req.flash('data', req.body)
-            return res.redirect(`/user/dokumen-kinerja/buat-link/${id}`)
-        }
-
-        if (!file) {
-            req.flash('error', 'Link tidak boleh kosong')
-            req.flash('data', req.body)
-            return res.redirect(`/user/dokumen-kinerja/buat-link/${id}`)
-        }
-
-        const laporanKinerjaData = await modelLaporanKinerja.getLaporanKinerjaById(id)
-
-        if (!laporanKinerjaData) {
-            req.flash('error', 'Laporan kinerja tidak ditemukan')
-            return res.redirect('/user/laporan-kinerja')
-        }
-
-        const user = await modelUser.getById(req.session.userId)
-
-        const data = {
-            id_laporan_kinerja: id,
-            tipe_file: 'Link',
-            nama_file,
-            file,
-            dibuat_oleh: user.nama,
-            id_user: user.id
-        }
-
-        await modelDokumenKinerja.store(data)
-
-        await modelLaporanKinerja.lastUpdate({
-            terakhir_diedit_oleh: user.nama
-        }, id)
-
-        req.flash('success', 'Dokumen kinerja berhasil dibuat')
-        res.redirect(`/user/dokumen-kinerja/detail/${id}`)
-    } catch (err) {
-        console.error(err)
-        req.flash('error', 'Internal Server Error')
-        res.redirect(`/user/dokumen-kinerja/buat-link/${req.params.id}`)
-    }
-})
-
 router.post('/hapus/:id', authUser, async (req, res) => {
     try {
         const {id} = req.params
@@ -254,9 +180,7 @@ router.post('/hapus/:id', authUser, async (req, res) => {
             return res.redirect(`/user/dokumen-kinerja/detail/${dokumenKinerjaData.id_laporan_kinerja}`)
         }
 
-        if (dokumenKinerjaData.tipe_file === 'Dokumen') {
-            deleteUploadedFile(dokumenKinerjaData.file)
-        }
+        deleteUploadedFile(dokumenKinerjaData.file)
 
         await modelDokumenKinerja.delete(id)
 
