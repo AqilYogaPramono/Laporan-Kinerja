@@ -50,13 +50,22 @@ class User {
     static async register(data) {
         try {
             const hashedPassword = await bcrypt.hash(data.kata_sandi, 10)
-            const [result] = await connection.query(`INSERT INTO users SET ?`, { 
-                nama: data.nama, 
-                nomor_pegawai: data.nomor_pegawai, 
-                id_tim: data.id_tim, 
-                kata_sandi: hashedPassword 
+            const [result] = await connection.query(`INSERT INTO users SET ?`, {
+                nama: data.nama,
+                nomor_pegawai: data.nomor_pegawai,
+                id_tim: data.id_tim,
+                kata_sandi: hashedPassword
             })
             return result
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async getUsers() {
+        try {
+            const [rows] = await connection.query(`SELECT u.id, u.nama, u.nomor_pegawai, u.jabatan, u.id_tim, u.status, u.waktu_dibuat, u.waktu_diverifikasi, t.nama_tim FROM users u LEFT JOIN tim t ON u.id_tim = t.id ORDER BY u.waktu_dibuat DESC`)
+            return rows
         } catch (err) {
             throw err
         }

@@ -72,7 +72,7 @@ staf
 
 admin {
 mmabuat tim
-pengguna (verivikasi, update ketua, update tim)
+pengguna (verivikasi, update ketua, update tim, pencarian berdasarkanno pegawai, terbaru di paling)
 }
 
 user {
