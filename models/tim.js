@@ -1,6 +1,6 @@
 const connection = require('../config/db')
 
-class tim {
+class Tim {
     static async getAll() {
         try {
             const [rows] = await connection.query(`select * from tim`)
@@ -83,4 +83,4 @@ class tim {
     }
 }
 
-module.exports = tim
+module.exports = Tim
