@@ -16,6 +16,9 @@
                   <div class="detail-header mb-3">
                     <h4 class="card-title mb-0 detail-title"><%= laporanKinerjaData.judul_laporan %></h4>
                     <div class="detail-actions">
+                      <% if (laporanKinerjaData.id_user == userId) { %>
+                        <a href="/user/laporan-kinerja/edit/<%= laporanKinerjaData.id %>" class="btn btn-warning btn-sm text-white">Edit Laporan</a>
+                      <% } %>
                       <a href="/user/dokumen-kinerja/buat-dokumen/<%= laporanKinerjaData.id %>" class="btn btn-primary btn-sm">Tambah Dokumen</a>
                       <a href="/user/dokumen-kinerja/buat-link/<%= laporanKinerjaData.id %>" class="btn btn-success btn-sm">Tambah Link</a>
                       <a href="/user/laporan-kinerja" class="btn btn-light btn-sm">Kembali</a>
