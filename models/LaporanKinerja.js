@@ -19,9 +19,9 @@ class LaporanKinerja {
         }
     }
 
-    static async getLaporanKinerja(id_karyawan) {
+    static async getLaporanKinerja(id_user) {
         try {
-            const [rows] = await connection.query(`SELECT l.id, l.judul_laporan, l.dibuat_oleh, l.dibuat_pada, l.terakhir_diedit_oleh, l.id_karyawan, k.nama AS nama_karyawan, k.id_tim FROM laporan_kinerja AS l JOIN karyawan AS k ON l.id_karyawan = k.id WHERE k.id_tim = ( SELECT id_tim FROM karyawan WHERE id = ? ) ORDER BY l.terakhir_diedit_pada DESC`, [id_karyawan])
+            const [rows] = await connection.query(`SELECT l.id, l.judul_laporan, l.dibuat_oleh, l.dibuat_pada, l.terakhir_diedit_oleh, l.id_user, u.nama AS nama_user, u.id_tim FROM laporan_kinerja AS l JOIN users AS u ON l.id_user = u.id WHERE u.id_tim = ( SELECT id_tim FROM users WHERE id = ? ) ORDER BY l.terakhir_diedit_pada DESC`, [id_user])
             return rows
         } catch (err) {
             throw err

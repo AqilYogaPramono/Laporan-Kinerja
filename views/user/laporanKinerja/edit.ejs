@@ -1,0 +1,35 @@
+<%- include('../../partials/headers/__header-dashboard.ejs', { title: 'Edit Laporan Kinerja' }) %>
+<%- include('../../partials/navs/__nav-karyawan.ejs') %>
+<%- include('../../partials/messages/__messages-dashboard.ejs') %>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title mb-4">
+                Edit Laporan Kinerja
+            </h3>
+        </div>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-description">Ubah judul laporan kinerja</p>
+                  <form action="/karyawan/laporan-kinerja/edit/<%= laporanKinerjaData.id %>" method="POST" data-loading>
+                    <div class="form-group">
+                      <label for="judul_laporan">Judul Laporan</label>
+                      <input type="text" class="form-control" id="judul_laporan" name="judul_laporan" placeholder="Masukkan judul laporan" value="<%= (typeof data != 'undefined' && data.judul_laporan) || laporanKinerjaData.judul_laporan %>" required>
+                    </div>
+                    <div class="d-flex">
+                      <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                      <a href="/karyawan/laporan-kinerja" class="btn btn-light">Kembali</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../partials/scripts/__script-dashboard.ejs') %>
+
