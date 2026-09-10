@@ -20,6 +20,7 @@ const adminTim = require('./routes/admin/tim')
 const userDashboard = require('./routes/users/dashboard')
 const userLaporanKinerja = require('./routes/users/laporanKinerja')
 const userDokumenKinerja = require('./routes/users/dokumenKinerja')
+const user = require('./routes/users/user')
 
 var app = express()
 
@@ -58,6 +59,7 @@ app.use('/admin/tim', adminTim)
 app.use('/user/dashboard', userDashboard)
 app.use('/user/laporan-kinerja', userLaporanKinerja)
 app.use('/user/dokumen-kinerja', userDokumenKinerja)
+app.use('/user', user)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

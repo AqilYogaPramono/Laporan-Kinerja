@@ -73,7 +73,7 @@ class User {
 
     static async getById(id) {
         try {
-            const [rows] = await connection.query(`SELECT u.id, u.nama, u.nomor_pegawai, u.jabatan, u.id_tim, u.status, u.waktu_dibuat, u.waktu_diverifikasi, t.nama_tim FROM users u LEFT JOIN tim t ON u.id_tim = t.id WHERE u.id = ?`, [id])
+            const [rows] = await connection.query(`SELECT u.id, u.nama, u.nomor_pegawai, u.kata_sandi, u.jabatan, u.id_tim, u.status, u.waktu_dibuat, u.waktu_diverifikasi, t.nama_tim FROM users u LEFT JOIN tim t ON u.id_tim = t.id WHERE u.id = ?`, [id])
             return rows[0]
         } catch (err) {
             throw err
@@ -122,6 +122,16 @@ class User {
     static async deleteUser(id) {
         try {
             const [result] = await connection.query(`DELETE FROM users WHERE id = ?`, [id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async updatePassword(data, id) {
+        try {
+            const hashedPassword = await bcrypt.hash(data.kata_sandi_baru, 10)
+            const [result] = await connection.query('UPDATE users SET kata_sandi = ? WHERE id = ?', [hashedPassword, id])
             return result
         } catch (err) {
             throw err
