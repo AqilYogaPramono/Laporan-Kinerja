@@ -70,6 +70,15 @@ class User {
             throw err
         }
     }
+
+    static async updateStatusAccount(data, id) {
+        try {
+            const [result] = await connection.query(`UPDATE users SET ? WHERE id = ?`, [data, id])
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 module.exports = User

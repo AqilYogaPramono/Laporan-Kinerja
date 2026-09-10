@@ -2,8 +2,6 @@ const express = require('express')
 
 const modelAdmin = require('../../models/Admin')
 const modelUser = require('../../models/User')
-const modelManajer = require('../../models/Manajer')
-const modelTim = require('../../models/Tim')
 const { authAdmin } = require('../../middleware/auth')
 
 const router = express.Router()
@@ -21,44 +19,30 @@ router.get('/', authAdmin, async (req, res) => {
     }
 })
 
-router.post('/edit/:id', authAdmin, async (req, res) => {
+router.post('/verifikasi/:id', authAdmin, async (req, res) => {
     try {
         const { id } = req.params
         const { status } = req.body
-        const data = { status }
 
-        await modelManajer.updateStatusAccount(data, id)
-
-        req.flash('success', 'Data Berhasil Diupdate')
-        res.redirect('/admin/manajer')
-    } catch (err) {
-        console.error(err)
-        req.flash('error', 'Internal Server Error')
-        res.redirect('/admin/manajer')
-    }
-})
-
-router.post('/delete/:id', authAdmin, async (req, res) => {
-    try {
-        const { id } = req.params
-
-        const manajer = await modelManajer.getById(id)
-
-        if (manajer.status != 'Non-Aktif') {
-            req.flash('error', 'Akun harus Non Aktif')
-            return res.redirect('/admin/manajer')
+        if (status !== 'Aktif' && status !== 'Non-Aktif') {
+            req.flash('error', 'Status tidak valid')
+            return res.redirect('/admin/users')
         }
 
-        await modelManajer.deleteAccount(id)
+        const data = { status }
+        if (status === 'Aktif') {
+            data.waktu_diverifikasi = new Date()
+        }
 
-        req.flash('success', 'Data berhasil dihapus')
-        res.redirect('/admin/manajer')
+        await modelUser.updateStatusAccount(data, id)
+
+        req.flash('success', 'Status Berhasil Diverifikasi')
+        res.redirect('/admin/users')
     } catch (err) {
         console.error(err)
         req.flash('error', 'Internal Server Error')
-        res.redirect('/admin/manajer')
+        res.redirect('/admin/users')
     }
 })
-
 
 module.exports = router

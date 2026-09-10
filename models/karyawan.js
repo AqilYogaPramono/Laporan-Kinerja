@@ -24,7 +24,7 @@ class Karyawan {
 
     static async updateStatusAccount(data, id) {
         try {
-            const [result] = await connection.query('UPDATE karyawan SET status = ?, waktu_diverifikasi = NOW() WHERE id = ?',[data.status, id])
+            const [result] = await connection.query('UPDATE karyawan SET status = ?, waktu_diverifikasi = NOW() WHERE id = ?', [data.status, id])
             return result
         } catch (err) {
             throw err
@@ -42,7 +42,7 @@ class Karyawan {
 
     static async deleteAccount(id) {
         try {
-            const [result] = await connection.query('DELETE FROM karyawan WHERE id = ?',[id])
+            const [result] = await connection.query('DELETE FROM karyawan WHERE id = ?', [id])
             return result
         } catch (err) {
             throw err
@@ -52,7 +52,7 @@ class Karyawan {
     static async updatePassword(data, id) {
         try {
             const hashedPassword = await bcrypt.hash(data.kata_sandi_baru, 10)
-            const [result] = await connection.query('UPDATE karyawan SET kata_sandi = ? WHERE id = ?',[hashedPassword, id])
+            const [result] = await connection.query('UPDATE karyawan SET kata_sandi = ? WHERE id = ?', [hashedPassword, id])
             return result
         } catch (err) {
             throw err
