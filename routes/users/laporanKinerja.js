@@ -15,7 +15,8 @@ router.get('/', authUser, async (req, res) => {
         res.render('user/laporanKinerja/index', { 
             user,
             data,
-            userId: req.session.userId
+            userId: req.session.userId,
+            userRole: req.session.role
         })
     } catch (err) {
         console.error(err)
@@ -26,6 +27,11 @@ router.get('/', authUser, async (req, res) => {
 
 router.get('/buat', authUser, async (req, res) => {
     try {
+        if (req.session.role !== 'Ketua') {
+            req.flash('error', 'Anda tidak memiliki akses ke halaman ini')
+            return res.redirect('/user/laporan-kinerja')
+        }
+
         const user = await modelUser.getNama(req.session.userId)
 
         res.render('user/laporanKinerja/buat', { 
