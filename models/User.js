@@ -64,8 +64,17 @@ class User {
 
     static async getUsers() {
         try {
-            const [rows] = await connection.query(`SELECT u.id, u.nama, u.nomor_pegawai, u.jabatan, u.id_tim, u.status, u.waktu_dibuat, u.waktu_diverifikasi, t.nama_tim FROM users u LEFT JOIN tim t ON u.id_tim = t.id ORDER BY u.waktu_dibuat DESC`)
+            const [rows] = await connection.query(`SELECT u.id, u.nama, u.nomor_pegawai, u.jabatan, u.status, t.nama_tim FROM users u LEFT JOIN tim t ON u.id_tim = t.id ORDER BY u.id DESC`)
             return rows
+        } catch (err) {
+            throw err
+        }
+    }
+
+    static async getById(id) {
+        try {
+            const [rows] = await connection.query(`SELECT u.id, u.nama, u.nomor_pegawai, u.jabatan, u.id_tim, u.status, u.waktu_dibuat, u.waktu_diverifikasi, t.nama_tim FROM users u LEFT JOIN tim t ON u.id_tim = t.id WHERE u.id = ?`, [id])
+            return rows[0]
         } catch (err) {
             throw err
         }
