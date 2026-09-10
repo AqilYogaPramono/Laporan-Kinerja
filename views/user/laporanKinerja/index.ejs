@@ -36,7 +36,7 @@
                               <td data-label="No"><%= index + 1 %></td>
                               <td data-label="Judul Laporan"><%= item.judul_laporan %></td>
                               <td data-label="Dibuat Oleh"><%= item.dibuat_oleh %></td>
-                              <td data-label="Dibuat Pada"><%= item.dibuat_pada ? new Date(item.dibuat_pada).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '-' %></td>
+                              <td data-label="Dibuat Pada"><%= item.dibuat_pada ? new Date(item.dibuat_pada).toLocaleString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-' %></td>
                               <td data-label="Terakhir Diedit Oleh"><%= item.terakhir_diedit_oleh || '-' %></td>
                               <td class="text-right" data-label="Aksi">
                                 <div class="btn-actions">
