@@ -55,45 +55,9 @@ class LaporanKinerja {
         }
     }
 
-    static async checkAuthorLaporanKinerja(id_laporan, id_karyawan) {
-        try {
-            const [rows] = await connection.query(`select id from laporan_kinerja where id = ? and id_karyawan = ?`, [id_laporan, id_karyawan])
-            return rows.length > 0
-        } catch (err) {
-            throw err
-        }
-    }
-
-    static async delete(id) {
-        try {
-            const [rows] = await connection.query(`delete from laporan_kinerja where id = ?`, [id])
-            return rows
-        } catch (err) {
-            throw err
-        }
-    }
-
     static async lastUpdate(data, id) {
         try {
             const [rows] = await connection.query(`update laporan_kinerja set ? where id = ?`, [data, id])
-            return rows
-        } catch (err) {
-            throw err
-        }
-    }
-
-    static async getAllLaporanKinerja() {
-        try {
-            const [rows] = await connection.query(`SELECT l.id, l.judul_laporan, l.dibuat_oleh, l.dibuat_pada, l.terakhir_diedit_oleh, k.nama AS nama_karyawan FROM laporan_kinerja AS l JOIN karyawan AS k ON l.id_karyawan = k.id ORDER BY l.terakhir_diedit_pada DESC`,)
-            return rows
-        } catch (err) {
-            throw err
-        }
-    }
-
-    static async getLaporanKinerjaByIdManajer(id_manajer) {
-        try {
-            const [rows] = await connection.query(`SELECT l.id, l.judul_laporan, l.dibuat_oleh, l.dibuat_pada, l.terakhir_diedit_oleh, l.id_karyawan, k.nama AS nama_karyawan, k.id_tim FROM laporan_kinerja AS l JOIN karyawan AS k ON l.id_karyawan = k.id WHERE k.id_tim = ( SELECT id_tim FROM manajer WHERE id = ? ) ORDER BY l.terakhir_diedit_pada DESC`, [id_manajer])
             return rows
         } catch (err) {
             throw err
